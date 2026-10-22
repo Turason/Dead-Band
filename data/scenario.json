@@ -1,0 +1,69 @@
+{
+  "title": "Dead Band",
+  "intro": "You are a newly licensed operator. Somewhere out there, stations are waiting. Start by calling CQ on the national 2m calling frequency, 146.520 MHz FM simplex. Type frequencies in MHz (e.g. 146.52). Edit this file (data/scenario.json) or use the Scenario Editor in the app to write your own chains.",
+  "stations": [
+    {
+      "id": "calling",
+      "name": "Net Control (K1ABC)",
+      "match": { "frequency": 146.52, "mode": "FM" },
+      "conversation": {
+        "start": "hello",
+        "nodes": {
+          "hello": {
+            "text": "K1ABC here. Good to hear a new voice! The 146.520 calling frequency is for brief contacts only. Why do we move off it after calling?",
+            "responses": [
+              { "text": "To keep the calling frequency clear for others.", "next": "clue", "correct": true, "feedback": "Correct: the national calling frequency should be kept clear." },
+              { "text": "Because FCC rules forbid more than 1 minute.", "next": "clue", "correct": false, "feedback": "Not a rule, but a courtesy: move off to keep it clear." }
+            ]
+          },
+          "clue": {
+            "text": "Try the local repeater: its output is 146.940 MHz. The standard 2m offset is 600 kHz, and this one uses a minus offset. Set 146.940 FM, offset - (0.600), and CTCSS encode tone 100.0 Hz. Low power is fine.",
+            "responses": [ { "text": "73, thanks!", "next": null } ]
+          }
+        }
+      }
+    },
+    {
+      "id": "repeater",
+      "name": "W1RPT Repeater Keeper",
+      "match": { "frequency": 146.94, "mode": "FM", "offset": -0.6, "ctcssTx": "100.0" },
+      "conversation": {
+        "start": "hi",
+        "nodes": {
+          "hi": {
+            "text": "You're coming through the repeater. Your radio's offset (shift) and CTCSS tone are what let you access it. What does the CTCSS tone do on the transmit side?",
+            "responses": [
+              { "text": "It opens the repeater's receiver (a subaudible access tone).", "next": "clue", "correct": true, "feedback": "Correct." },
+              { "text": "It boosts transmit power.", "next": "clue", "correct": false, "feedback": "No: CTCSS is a subaudible tone for access/squelch." }
+            ]
+          },
+          "clue": {
+            "text": "Next, find Sam on the 40 meter band: 7.200 MHz, LSB. Sideband convention below 10 MHz is lower sideband. You'll need an HF antenna: try the 40m dipole.",
+            "responses": [ { "text": "Roger, heading to 40m.", "next": null } ]
+          }
+        }
+      }
+    },
+    {
+      "id": "sam40",
+      "name": "Sam (W2SAM) on 40m",
+      "match": { "frequency": 7.2, "mode": "LSB", "antenna": ["dipole-40m", "hf-vertical"], "minPower": 5 },
+      "conversation": {
+        "start": "hi",
+        "nodes": {
+          "hi": {
+            "text": "CQ CQ, this is W2SAM. Reading you five by nine. What does an RST report of 5 by 9 mean?",
+            "responses": [
+              { "text": "Readability 5, signal strength 9, (CW adds tone 9).", "next": "end", "correct": true, "feedback": "Correct." },
+              { "text": "Five watts, nine volts.", "next": "end", "correct": false, "feedback": "RST is Readability, Strength, Tone." }
+            ]
+          },
+          "end": {
+            "text": "That's it for this chain, congratulations! Add more stations in the scenario file.",
+            "responses": [ { "text": "73!", "next": null } ]
+          }
+        }
+      }
+    }
+  ]
+}
