@@ -1,66 +1,255 @@
 {
-  "title": "Dead Band",
-  "intro": "You are a newly licensed operator. Somewhere out there, stations are waiting. Start by calling CQ on the national 2m calling frequency, 146.520 MHz FM simplex. Type frequencies in MHz (e.g. 146.52). Edit this file (data/scenario.json) or use the Scenario Editor in the app to write your own chains.",
+ {
+  "title": "Dead Band — Chapter 1: Is Anyone Out There?",
+  "intro": "Get a notebook and pencil. They are your most important weapons. Write down frequencies, callsigns, procedures, formulas, and anything else that might keep you alive. Use your ham radio study materials whenever you need them. Looking things up is not cheating. Out here, knowing where to find an answer is part of knowing the answer.\n\nThe radio in front of you is already powered on. Someone left it tuned to 146.520 MHz, FM, at low power.\n\nA handwritten note taped beside the transmit button reads:\n\nLISTEN FIRST.\nKNOW YOUR FREQUENCY.\nUSE ONLY THE POWER YOU NEED.\nTHEY ARE LISTENING TOO.",
   "stations": [
     {
-      "id": "calling",
-      "name": "Net Control (K1ABC)",
-      "match": { "frequency": 146.52, "mode": "FM" },
+      "id": "mara-calling",
+      "name": "Unknown Station",
+      "match": {
+        "frequency": 146.52,
+        "mode": "FM"
+      },
       "conversation": {
         "start": "hello",
         "nodes": {
           "hello": {
-            "text": "K1ABC here. Good to hear a new voice! The 146.520 calling frequency is for brief contacts only. Why do we move off it after calling?",
+            "text": "K7MVR listening on five-two. Any surviving station receiving, listen before you transmit. Again: K7MVR listening on 146.520.",
             "responses": [
-              { "text": "To keep the calling frequency clear for others.", "next": "clue", "correct": true, "feedback": "Correct: the national calling frequency should be kept clear." },
-              { "text": "Because FCC rules forbid more than 1 minute.", "next": "clue", "correct": false, "feedback": "Not a rule, but a courtesy: move off to keep it clear." }
+              {
+                "text": "Transmit immediately.",
+                "next": "too-fast",
+                "correct": false,
+                "feedback": "The note says LISTEN FIRST."
+              },
+              {
+                "text": "Wait and listen.",
+                "next": "listened",
+                "correct": true,
+                "feedback": "You listen. No other station answers."
+              }
             ]
           },
-          "clue": {
-            "text": "Try the local repeater: its output is 146.940 MHz. The standard 2m offset is 600 kHz, and this one uses a minus offset. Set 146.940 FM, offset - (0.600), and CTCSS encode tone 100.0 Hz. Low power is fine.",
-            "responses": [ { "text": "73, thanks!", "next": null } ]
+          "too-fast": {
+            "text": "Easy. Listen first. You don't know who else might be using the frequency. And these days, you really don't know who might be listening.",
+            "responses": [
+              {
+                "text": "Wait and listen.",
+                "next": "listened",
+                "correct": true,
+                "feedback": "The frequency remains clear."
+              }
+            ]
+          },
+          "listened": {
+            "text": "The frequency remains quiet except for K7MVR. The display reads 146.520 MHz. Mode: FM.",
+            "responses": [
+              {
+                "text": "K7MVR, this is K7DBN.",
+                "next": "contact",
+                "correct": true,
+                "feedback": "You call the station using its callsign followed by your own."
+              },
+              {
+                "text": "CQ CQ CQ! Anybody out there?",
+                "next": "contact",
+                "correct": false,
+                "feedback": "You already know the station you want. Call K7MVR directly."
+              }
+            ]
+          },
+          "contact": {
+            "text": "K7DBN, K7MVR. Well, that's a pleasant surprise. I'm Mara. And whoever left you that radio knew what they were doing. You're on 146.520 MHz FM — the national 2-meter simplex calling frequency. Simplex means we're transmitting and receiving directly on the same frequency. This frequency is useful for making contact, but we shouldn't occupy it longer than necessary. Write this down: 146.550 MHz, FM. Move there and call me again.",
+            "responses": [
+              {
+                "text": "Copy. Moving to 146.550.",
+                "next": null
+              }
+            ]
           }
         }
       }
     },
+
     {
-      "id": "repeater",
-      "name": "W1RPT Repeater Keeper",
-      "match": { "frequency": 146.94, "mode": "FM", "offset": -0.6, "ctcssTx": "100.0" },
+      "id": "mara-simplex",
+      "name": "Mara Vance (K7MVR)",
+      "match": {
+        "frequency": 146.55,
+        "mode": "FM"
+      },
       "conversation": {
-        "start": "hi",
+        "start": "arrival",
         "nodes": {
-          "hi": {
-            "text": "You're coming through the repeater. Your radio's offset (shift) and CTCSS tone are what let you access it. What does the CTCSS tone do on the transmit side?",
+          "arrival": {
+            "text": "K7DBN, K7MVR. Good. Now we're off the calling frequency. Before we go any farther, look at your radio. Frequency tells you where you're transmitting. Mode tells the radio how to put information onto the signal. And power helps determine how far that signal may be heard. The Watchers have direction-finding equipment. Every transmission tells them a radio is out here somewhere. More power can make you easier to hear farther away. So what power should you use?",
             "responses": [
-              { "text": "It opens the repeater's receiver (a subaudible access tone).", "next": "clue", "correct": true, "feedback": "Correct." },
-              { "text": "It boosts transmit power.", "next": "clue", "correct": false, "feedback": "No: CTCSS is a subaudible tone for access/squelch." }
+              {
+                "text": "The lowest power that gives reliable communication.",
+                "next": "power-correct",
+                "correct": true,
+                "feedback": "Correct. Use the minimum power necessary for reliable communication."
+              },
+              {
+                "text": "Maximum power, so the transmission is over faster.",
+                "next": "power-correct",
+                "correct": false,
+                "feedback": "More power can make you detectable from farther away. Start with only what you need."
+              }
             ]
           },
-          "clue": {
-            "text": "Next, find Sam on the 40 meter band: 7.200 MHz, LSB. Sideband convention below 10 MHz is lower sideband. You'll need an HF antenna: try the 40m dipole.",
-            "responses": [ { "text": "Roger, heading to 40m.", "next": null } ]
+          "power-correct": {
+            "text": "Exactly. Low power isn't always enough. Sometimes we'll need more. But don't use power you don't need. Frequency determines where you're transmitting. Power helps determine how far away somebody may hear you. Around here, both can get you killed.",
+            "responses": [
+              {
+                "text": "Understood.",
+                "next": "elias"
+              }
+            ]
+          },
+          "elias": {
+            "text": "Let's see if you can make another contact. Elias is nearby. Callsign K7ELN. He's monitoring 146.580 MHz FM simplex. Start low. If he can't copy you, increase power one step.",
+            "responses": [
+              {
+                "text": "146.580 MHz FM. K7ELN.",
+                "next": null
+              }
+            ]
           }
         }
       }
     },
+
     {
-      "id": "sam40",
-      "name": "Sam (W2SAM) on 40m",
-      "match": { "frequency": 7.2, "mode": "LSB", "antenna": ["dipole-40m", "hf-vertical"], "minPower": 5 },
+      "id": "elias-simplex",
+      "name": "Elias (K7ELN)",
+      "match": {
+        "frequency": 146.58,
+        "mode": "FM"
+      },
       "conversation": {
-        "start": "hi",
+        "start": "hello",
         "nodes": {
-          "hi": {
-            "text": "CQ CQ, this is W2SAM. Reading you five by nine. What does an RST report of 5 by 9 mean?",
+          "hello": {
+            "text": "K7DBN, K7ELN. I have you, but you're weak. Don't jump straight to maximum power. Bring it up one step and try again.",
             "responses": [
-              { "text": "Readability 5, signal strength 9, (CW adds tone 9).", "next": "end", "correct": true, "feedback": "Correct." },
-              { "text": "Five watts, nine volts.", "next": "end", "correct": false, "feedback": "RST is Readability, Strength, Tone." }
+              {
+                "text": "Increase power one step.",
+                "next": "power-up",
+                "correct": true,
+                "feedback": "Increase power only as much as necessary."
+              }
             ]
           },
-          "end": {
-            "text": "That's it for this chain, congratulations! Add more stations in the scenario file.",
-            "responses": [ { "text": "73!", "next": null } ]
+          "power-up": {
+            "text": "Much better. That's enough. Remember that. The right amount of power isn't 'as much as the radio can make.' It's enough to establish reliable communication.",
+            "responses": [
+              {
+                "text": "Copy.",
+                "next": "repeater-clue"
+              }
+            ]
+          },
+          "repeater-clue": {
+            "text": "Mara wants you on RIDGE-1 next. That's a repeater. Unlike simplex, you transmit on one frequency and receive on another. Write this down: repeater output 146.940 MHz. Standard 2-meter offset: 600 kHz. This repeater uses a minus offset. Set the radio for 146.940 MHz FM with a -0.600 MHz shift. Then try calling Mara.",
+            "responses": [
+              {
+                "text": "146.940 FM, minus 0.600. Got it.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "id": "ridge-no-tone",
+      "name": "RIDGE-1 Repeater",
+      "match": {
+        "frequency": 146.94,
+        "mode": "FM",
+        "offset": -0.6
+      },
+      "conversation": {
+        "start": "failure",
+        "nodes": {
+          "failure": {
+            "text": "You transmit. Nothing comes back. No repeater response. No Mara.",
+            "responses": [
+              {
+                "text": "Try again.",
+                "next": "elias-help"
+              }
+            ]
+          },
+          "elias-help": {
+            "text": "K7DBN, K7ELN. I heard you on the repeater input. Your frequency and offset are right, but RIDGE-1 isn't opening for you. You're missing the access tone. Set CTCSS transmit to 100.0 Hz. It's a subaudible tone the repeater listens for before it opens. It isn't encryption and it doesn't make the conversation private.",
+            "responses": [
+              {
+                "text": "Set CTCSS transmit to 100.0 Hz.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "id": "ridge-repeater",
+      "name": "RIDGE-1 / Mara (K7MVR)",
+      "match": {
+        "frequency": 146.94,
+        "mode": "FM",
+        "offset": -0.6,
+        "ctcssTx": "100.0"
+      },
+      "conversation": {
+        "start": "success",
+        "nodes": {
+          "success": {
+            "text": "K7DBN, K7MVR through RIDGE-1. There you are. Notice what just happened. You're listening to the repeater on 146.940, but with a minus 600 kilohertz offset your radio transmits to it on 146.340. The repeater receives you there and retransmits you on 146.940 from a much better location.",
+            "responses": [
+              {
+                "text": "So the repeater lets us communicate beyond direct simplex range.",
+                "next": "tone-question",
+                "correct": true,
+                "feedback": "Right. Its location and antenna can greatly extend useful coverage."
+              },
+              {
+                "text": "So the repeater increases the power of my radio.",
+                "next": "tone-question",
+                "correct": false,
+                "feedback": "Not your transmitter power. The repeater receives your signal and retransmits it from its own station."
+              }
+            ]
+          },
+          "tone-question": {
+            "text": "And what did that 100 Hz CTCSS tone do?",
+            "responses": [
+              {
+                "text": "It allowed my transmission to access the repeater.",
+                "next": "mission",
+                "correct": true,
+                "feedback": "Correct."
+              },
+              {
+                "text": "It encrypted our conversation from the Watchers.",
+                "next": "mission",
+                "correct": false,
+                "feedback": "No. CTCSS is not encryption. Anyone capable of receiving the transmission can still hear it."
+              }
+            ]
+          },
+          "mission": {
+            "text": "Good. Tutorial's over. We have a real problem. A medical convoy missed its last check-in. I need you to find out where it went. Nobody is going to hand you every radio setting this time. Get your notebook.",
+            "responses": [
+              {
+                "text": "I'm ready.",
+                "next": null
+              }
+            ]
           }
         }
       }
