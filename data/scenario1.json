@@ -1,5 +1,9 @@
 {
   "title": "Dead Band — Chapter 1: Is Anyone Out There?",
+  "chapterTitle": "Is Anyone Out There?",
+  "day": "Day 1",
+  "time": "07:30",
+  "weather": "Cold, overcast, light wind",
   "intro": "Get a notebook and pencil. They are your most important weapons. Write down frequencies, callsigns, procedures, formulas, and anything else that might keep you alive. Use your ham radio study materials whenever you need them. Looking things up is not cheating. Out here, knowing where to find an answer is part of knowing the answer.\n\nThe radio in front of you is already powered on. Someone left it tuned to 146.520 MHz, FM, at low power.\n\nA handwritten note taped beside the transmit button reads:\n\nLISTEN FIRST.\nKNOW YOUR FREQUENCY.\nUSE ONLY THE POWER YOU NEED.\nTHEY ARE LISTENING TOO.",
   "stations": [
     {
@@ -247,7 +251,8 @@
             "responses": [
               {
                 "text": "I'm ready.",
-                "next": null
+                "next": null,
+                "chapterComplete": true
               }
             ]
           }
