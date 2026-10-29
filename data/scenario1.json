@@ -4,24 +4,8 @@
   "day": "Day 1",
   "time": "07:30",
   "weather": "Cold, overcast, light wind",
-
   "intro": "Get a notebook and pencil. They are your most important weapons. Write down frequencies, callsigns, procedures, formulas, and anything else that might keep you alive. Use your ham radio study materials whenever you need them. Looking things up is not cheating. Out here, knowing where to find an answer is part of knowing the answer.\n\nThe radio in front of you is already powered on. Someone left it tuned to 146.520 MHz, FM, at low power.\n\nA handwritten note taped beside the transmit button reads:\n\nLISTEN FIRST.\nKNOW YOUR FREQUENCY.\nUSE ONLY THE POWER YOU NEED.\nTHEY ARE LISTENING TOO.",
-
-  "features": {
-    "dtmf": false,
-    "antennaSelect": false,
-    "antennaOrientation": false,
-    "antennaDirection": false,
-    "antennaTuner": false,
-    "swr": false,
-    "rit": false,
-    "reverse": false,
-    "filter": false,
-    "digital": false
-  },
-
   "stations": [
-
     {
       "id": "mara-calling",
       "name": "Unknown Station",
@@ -49,7 +33,6 @@
               }
             ]
           },
-
           "too-fast": {
             "text": "Easy. Listen first. You don't know who else might be using the frequency. And these days, you really don't know who might be listening.",
             "responses": [
@@ -61,7 +44,6 @@
               }
             ]
           },
-
           "listened": {
             "text": "The frequency remains quiet except for K7MVR. The display reads 146.520 MHz. Mode: FM.",
             "responses": [
@@ -79,12 +61,11 @@
               }
             ]
           },
-
           "contact": {
-            "text": "K7DBN, K7MVR. Well, that's a pleasant surprise. I'm Mara. And whoever left you that radio knew what they were doing. You're on 146.520 MHz FM — the national 2-meter simplex calling frequency. Simplex means we're transmitting and receiving directly on the same frequency. This frequency is useful for making contact, but we shouldn't occupy it longer than necessary. Write this down: 146.550 MHz, FM. Move there and call me again.",
+            "text": "K7DBN, K7MVR. Well, that's a pleasant surprise. I'm Mara. And whoever left you that radio knew what they were doing. You're on 146.520 MHz FM — the national 2-meter simplex calling frequency. Simplex means we're transmitting and receiving directly on the same frequency. This frequency is useful for making contact, but we shouldn't occupy it longer than necessary. Write this down: 146.540 MHz, FM. Move there and call me again.",
             "responses": [
               {
-                "text": "Copy. Moving to 146.550.",
+                "text": "Copy. Moving to 146.540.",
                 "next": null
               }
             ]
@@ -92,19 +73,18 @@
         }
       }
     },
-
     {
       "id": "mara-simplex",
       "name": "Mara Vance (K7MVR)",
       "match": {
-        "frequency": 146.55,
+        "frequency": 146.54,
         "mode": "FM"
       },
       "conversation": {
         "start": "arrival",
         "nodes": {
           "arrival": {
-            "text": "K7DBN, K7MVR. Good. Now we're off the calling frequency. Look at your radio. Frequency tells you where you're transmitting. Mode tells the radio how to put information onto the signal. Power helps determine how far that signal may be heard. The Watchers have direction-finding equipment. Every transmission tells them a radio is out here somewhere. So what power should you use?",
+            "text": "K7DBN, K7MVR. Good. Now we're off the calling frequency. Before we go any farther, look at your radio. Frequency tells you where you're transmitting. Mode tells the radio how to put information onto the signal. And power helps determine how far that signal may be heard. The Watchers have direction-finding equipment. Every transmission tells them a radio is out here somewhere. More power can make you easier to hear farther away. So what power should you use?",
             "responses": [
               {
                 "text": "The lowest power that gives reliable communication.",
@@ -120,9 +100,8 @@
               }
             ]
           },
-
           "power-correct": {
-            "text": "Exactly. Low power isn't always enough. Sometimes we'll need more. But don't use power you don't need. Around here, every unnecessary watt is another chance for someone to hear you.",
+            "text": "Exactly. Low power isn't always enough. Sometimes we'll need more. But don't use power you don't need. Frequency determines where you're transmitting. Power helps determine how far away somebody may hear you. Around here, both can get you killed.",
             "responses": [
               {
                 "text": "Understood.",
@@ -130,12 +109,11 @@
               }
             ]
           },
-
           "elias": {
-            "text": "Let's see if you can make another contact. Elias is nearby. Callsign K7ELN. He's monitoring 146.580 MHz FM simplex. Start low. If he can't copy you, increase power one step.",
+            "text": "Let's see if you can make another contact. Elias is nearby. Callsign K7ELN. He's monitoring 146.560 MHz FM simplex. Start low. If he can't copy you, increase power one step.",
             "responses": [
               {
-                "text": "146.580 MHz FM. K7ELN.",
+                "text": "146.560 MHz FM. K7ELN.",
                 "next": null
               }
             ]
@@ -143,12 +121,11 @@
         }
       }
     },
-
     {
       "id": "elias-simplex",
       "name": "Elias (K7ELN)",
       "match": {
-        "frequency": 146.58,
+        "frequency": 146.56,
         "mode": "FM"
       },
       "conversation": {
@@ -165,9 +142,8 @@
               }
             ]
           },
-
           "power-up": {
-            "text": "Much better. That's enough. The right amount of power isn't 'as much as the radio can make.' It's enough to establish reliable communication.",
+            "text": "Much better. That's enough. Remember that. The right amount of power isn't 'as much as the radio can make.' It's enough to establish reliable communication.",
             "responses": [
               {
                 "text": "Copy.",
@@ -175,7 +151,6 @@
               }
             ]
           },
-
           "repeater-clue": {
             "text": "Mara wants you on RIDGE-1 next. That's a repeater. Unlike simplex, you transmit on one frequency and receive on another. Write this down: repeater output 146.940 MHz. Standard 2-meter offset: 600 kHz. This repeater uses a minus offset. Set the radio for 146.940 MHz FM with a -0.600 MHz shift. Then try calling Mara.",
             "responses": [
@@ -188,7 +163,6 @@
         }
       }
     },
-
     {
       "id": "ridge-no-tone",
       "name": "RIDGE-1 Repeater",
@@ -210,7 +184,6 @@
               }
             ]
           },
-
           "elias-help": {
             "text": "K7DBN, K7ELN. I heard you on the repeater input. Your frequency and offset are right, but RIDGE-1 isn't opening for you. You're missing the access tone. Set CTCSS transmit to 100.0 Hz. It's a subaudible tone the repeater listens for before it opens. It isn't encryption and it doesn't make the conversation private.",
             "responses": [
@@ -223,7 +196,6 @@
         }
       }
     },
-
     {
       "id": "ridge-repeater",
       "name": "RIDGE-1 / Mara (K7MVR)",
@@ -237,7 +209,7 @@
         "start": "success",
         "nodes": {
           "success": {
-            "text": "K7DBN, K7MVR through RIDGE-1. There you are. You're listening to the repeater on 146.940, but with a minus 600 kilohertz offset your radio transmits to it on 146.340. The repeater receives you there and retransmits you on 146.940 from a much better location.",
+            "text": "K7DBN, K7MVR through RIDGE-1. There you are. Notice what just happened. You're listening to the repeater on 146.940, but with a minus 600 kilohertz offset your radio transmits to it on 146.340. The repeater receives you there and retransmits you on 146.940 from a much better location.",
             "responses": [
               {
                 "text": "So the repeater lets us communicate beyond direct simplex range.",
@@ -253,7 +225,6 @@
               }
             ]
           },
-
           "tone-question": {
             "text": "And what did that 100 Hz CTCSS tone do?",
             "responses": [
@@ -271,12 +242,11 @@
               }
             ]
           },
-
           "mission": {
-            "text": "Good. Tutorial's over. Now we have a real problem. Medical convoy MED-3 missed its morning check-in. They were supposed to report to the valley emergency net. Net control is K7NCS on 147.150 MHz, FM, plus 600 kilohertz, CTCSS 100.0. Don't just barge in. Find the net, listen, and follow net control's instructions.",
+            "text": "Good. Tutorial's over. We have a real problem. A medical convoy missed its last check-in. I need you to find out where it went. Nobody is going to hand you every radio setting this time. Get your notebook. Valley Net Control is operating through a repeater on 147.150 MHz FM. Set a +0.600 MHz offset and CTCSS transmit to 100.0 Hz. Listen first, then check in with K7NCS.",
             "responses": [
               {
-                "text": "I'll find the net.",
+                "text": "Tune to 147.150 MHz FM, plus 0.600, CTCSS 100.0 Hz.",
                 "next": null
               }
             ]
@@ -284,7 +254,6 @@
         }
       }
     },
-
     {
       "id": "valley-net",
       "name": "Valley Net Control (K7NCS)",
@@ -295,164 +264,129 @@
         "ctcssTx": "100.0"
       },
       "conversation": {
-        "start": "traffic",
+        "start": "opening",
         "nodes": {
-          "traffic": {
-            "text": "K7NCS to all stations: stand by. Emergency traffic in progress. K7ELN, continue your report.",
+          "opening": {
+            "text": "K7DBN, this is K7NCS, Valley Net Control. Emergency traffic is in progress. If you're checking in for the first time, stand by and listen. If you're returning with a report, wait for an opening, then identify yourself and say you have traffic.",
             "responses": [
               {
-                "text": "K7NCS, K7DBN! I'm looking for MED-3!",
-                "next": "interrupted",
-                "correct": false,
-                "feedback": "Net control told all other stations to stand by."
+                "text": "Stand by and listen.",
+                "next": "situation"
               },
               {
-                "text": "Wait and listen.",
-                "next": "called",
+                "text": "K7NCS, this is K7DBN with traffic from MED-3.",
+                "next": "relay"
+              },
+              {
+                "text": "Transmit immediately, before the channel gets busy.",
+                "next": "interrupt",
+                "correct": false,
+                "feedback": "On a directed net, listen to Net Control and avoid transmitting over other stations."
+              }
+            ]
+          },
+          "interrupt": {
+            "text": "K7NCS cuts in sharply: Stand by, K7DBN. We have emergency traffic. Wait for an opening and listen to the net.",
+            "responses": [
+              {
+                "text": "Stand by and listen.",
+                "next": "situation",
                 "correct": true,
-                "feedback": "You wait while the emergency traffic is completed."
+                "feedback": "You let the current traffic finish before transmitting."
               }
             ]
           },
-
-          "interrupted": {
-            "text": "K7DBN, stand by. Emergency traffic has priority. I'll call you when I'm ready.",
+          "situation": {
+            "text": "After a pause, K7NCS returns. Last report from K7RPT, MED-3's operator, mentioned interference near the east pass. The convoy may have switched to simplex if the repeater became unusable. Its last monitoring frequency was 147.440 MHz FM. Check there, then return here with a concise report.",
             "responses": [
               {
-                "text": "Wait and listen.",
-                "next": "called",
-                "correct": true
-              }
-            ]
-          },
-
-          "called": {
-            "text": "K7DBN, K7NCS. Go ahead with your traffic.",
-            "responses": [
-              {
-                "text": "K7NCS, K7DBN. I'm trying to locate medical convoy MED-3. They missed their scheduled check-in.",
-                "next": "report",
-                "correct": true
-              },
-              {
-                "text": "Has anybody seen the medical convoy?",
-                "next": "report",
-                "correct": false,
-                "feedback": "On a directed net, communicate through net control unless instructed otherwise."
-              }
-            ]
-          },
-
-          "report": {
-            "text": "K7DBN, copy. Last traffic from MED-3 was relayed by K7RPT. He reported interference near the east pass and said the convoy might switch to simplex if they lost the repeater. His last known monitoring frequency was 146.550 MHz FM. Try there. Keep your transmission brief.",
-            "responses": [
-              {
-                "text": "Copy 146.550 FM simplex.",
+                "text": "Switch to 147.440 MHz FM simplex and listen for MED-3.",
                 "next": null
               }
             ]
-          }
-        }
-      }
-    },
-
-    {
-      "id": "med3-simplex",
-      "name": "Medical Convoy MED-3",
-      "match": {
-        "frequency": 146.55,
-        "mode": "FM"
-      },
-      "conversation": {
-        "start": "weak",
-        "nodes": {
-          "weak": {
-            "text": "...DBN... MED-3... receiving you weak but readable... repeater unusable from this side of the pass...",
+          },
+          "relay": {
+            "text": "K7NCS: Go ahead, K7DBN. Send your traffic.",
             "responses": [
               {
-                "text": "MED-3, K7DBN. I copy you. Give me your status.",
-                "next": "status",
-                "correct": true
+                "text": "K7NCS, K7DBN. MED-3 reports the convoy is intact, the Route Four bridge is blocked, and the convoy has diverted east. They request that the relief team be redirected east.",
+                "next": "acknowledgment",
+                "correct": true,
+                "feedback": "You relayed the important facts accurately and concisely."
               },
               {
-                "text": "Increase immediately to maximum power.",
-                "next": "status",
+                "text": "MED-3 is lost. I think they went west, and Route Four might be blocked.",
+                "next": "acknowledgment",
                 "correct": false,
-                "feedback": "The signal is readable. More power may not be necessary."
+                "feedback": "Don't guess or weaken confirmed information. Relay the convoy's actual report."
               }
             ]
           },
-
-          "status": {
-            "text": "K7DBN, MED-3. Convoy intact. Bridge on Route Four is blocked. We diverted east and lost repeater coverage. We need net control to tell the relief team not to follow us onto Route Four. Repeat: Route Four blocked. Relief team must divert east.",
+          "acknowledgment": {
+            "text": "K7NCS: Copy, K7DBN. MED-3 intact, Route Four blocked, convoy diverted east. We'll redirect the relief team. Stand by. A few minutes later, Net Control confirms the relief team is moving east to meet the convoy. Your report may have saved them.",
             "responses": [
               {
-                "text": "Copy: Route Four blocked. Relief team divert east. I'll relay.",
-                "next": null
-              }
-            ]
-          }
-        }
-      }
-    },
-
-    {
-      "id": "valley-net-return",
-      "name": "Valley Net Control (K7NCS)",
-      "match": {
-        "frequency": 147.15,
-        "mode": "FM",
-        "offset": 0.6,
-        "ctcssTx": "100.0"
-      },
-      "conversation": {
-        "start": "return",
-        "nodes": {
-          "return": {
-            "text": "K7DBN, K7NCS. Go ahead.",
-            "responses": [
-              {
-                "text": "K7NCS, K7DBN with traffic from MED-3. Route Four is blocked. MED-3 diverted east. Relief team must not use Route Four.",
-                "next": "acknowledge",
-                "correct": true
-              },
-              {
-                "text": "I found them. They're okay.",
-                "next": "need-message",
-                "correct": false,
-                "feedback": "Net control needs the actual message, not just a summary that they're safe."
-              }
-            ]
-          },
-
-          "need-message": {
-            "text": "K7DBN, I need their traffic. What does MED-3 need us to know?",
-            "responses": [
-              {
-                "text": "Route Four is blocked. MED-3 diverted east. Relief team must not use Route Four.",
-                "next": "acknowledge",
-                "correct": true
-              }
-            ]
-          },
-
-          "acknowledge": {
-            "text": "K7DBN, message received. Stand by.",
-            "responses": [
-              {
-                "text": "Wait.",
-                "next": "resolution"
-              }
-            ]
-          },
-
-          "resolution": {
-            "text": "K7DBN, K7NCS. Relief team copied the message. They're turning east now. Good work. Clear when ready.",
-            "responses": [
-              {
-                "text": "K7NCS, K7DBN. Clear.",
+                "text": "Stand by for further instructions.",
                 "next": null,
                 "chapterComplete": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "med3-simplex",
+      "name": "Medical Convoy MED-3 (K7RPT)",
+      "match": {
+        "frequency": 147.44,
+        "mode": "FM",
+        "offset": 0,
+        "ctcssTx": "OFF"
+      },
+      "conversation": {
+        "start": "hello",
+        "nodes": {
+          "hello": {
+            "text": "K7DBN, this is K7RPT with MED-3. We're on simplex. Your signal is readable. Identify yourself and tell me what you need.",
+            "responses": [
+              {
+                "text": "K7RPT, this is K7DBN. Report your status and route.",
+                "next": "status",
+                "correct": true,
+                "feedback": "You identify both stations and ask for the information needed."
+              },
+              {
+                "text": "Transmit at maximum power and repeat the call over and over.",
+                "next": "status",
+                "correct": false,
+                "feedback": "Use enough power for reliable contact, and keep transmissions concise."
+              }
+            ]
+          },
+          "status": {
+            "text": "MED-3: Convoy intact, but the Route Four bridge is blocked. We diverted east. We need this relayed to Valley Net Control. Please acknowledge.",
+            "responses": [
+              {
+                "text": "Copy: convoy intact, Route Four bridge blocked, diverted east. I'll relay that to K7NCS.",
+                "next": "return-instructions",
+                "correct": true,
+                "feedback": "You captured the convoy's status, obstruction, diversion, and request."
+              },
+              {
+                "text": "Copy: Route Four is clear. Continue west.",
+                "next": "return-instructions",
+                "correct": false,
+                "feedback": "That changes the report and could send the relief team into danger. Preserve the facts exactly."
+              }
+            ]
+          },
+          "return-instructions": {
+            "text": "K7RPT: That's correct. Keep the transmission short. Return to Valley Net Control on 147.150 MHz FM, with a +0.600 MHz offset and CTCSS transmit at 100.0 Hz. Listen for an opening before you send the report.",
+            "responses": [
+              {
+                "text": "Restore the Valley Net repeater settings and return to 147.150 MHz.",
+                "next": null
               }
             ]
           }
