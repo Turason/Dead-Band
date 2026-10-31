@@ -4,5 +4,10 @@
       "id": "chapter-1",
       "file": "scenario1.json"
     }
+  
+    {
+      "id": "chapter-2",
+      "file": "scenario2.json"
+    }
   ]
 }
