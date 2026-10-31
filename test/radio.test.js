@@ -109,10 +109,12 @@ test('conversation flows', () => {
 });
 
 test('final chapter response is explicitly marked complete', () => {
-  const station = sc.stations.find(s => s.id === 'ridge-repeater');
+  const station = sc.stations.find(s => s.id === 'valley-net');
   const conv = R.startConversation(station);
-  R.choose(conv, 0);
-  R.choose(conv, 0);
+  assert.strictEqual(R.choose(conv, 1).ended, false);
+  assert.strictEqual(conv.nodeId, 'relay');
+  assert.strictEqual(R.choose(conv, 0).ended, false);
+  assert.strictEqual(conv.nodeId, 'acknowledgment');
   const ending = R.choose(conv, 0);
   assert.strictEqual(ending.ended, true);
   assert.strictEqual(ending.chapterComplete, true);
