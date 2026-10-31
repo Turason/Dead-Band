@@ -1,0 +1,266 @@
+{
+  "title": "Dead Band — Chapter 2: The Shape of the Signal",
+  "chapterTitle": "Radio Wave Propagation",
+  "day": "Day 2",
+  "time": "08:15",
+  "weather": "Cool morning, clearing skies; fog in the valley beneath a warmer layer",
+  "intro": "The radio was quiet through the night. Mara has not checked in. Beside the radio you find a scrap of paper marked: WREN — λ = 2.04 m. There is no frequency and no location, only the note. Get your notebook. Outside, cold air is trapped in the valley beneath warmer air. The sun is climbing, and solar activity is high. The radio is tuned to 146.500 MHz FM. Today you must learn how a signal travels, not just how to transmit one.",
+  "features": {
+    "dtmf": false
+  },
+  "stations": [
+    {
+      "id": "mara-wavelength",
+      "name": "Mara — The Wavelength Note",
+      "match": { "frequency": 146.50, "mode": "FM" },
+      "conversation": {
+        "start": "wren-note",
+        "nodes": {
+          "wren-note": {
+            "text": "A clipped recording from Mara plays through the speaker. “WREN left this note: lambda equals 2.04 meters. It is a clue, but not a channel assignment. Use the relationship between wavelength and frequency. What frequency does it suggest?”",
+            "responses": [
+              {
+                "text": "Calculate 300 divided by 2.04: approximately 147 MHz, in the 2-meter band.",
+                "next": "wave-basics"
+              }
+            ]
+          },
+          "wave-basics": {
+            "text": "Mara continues: “Right. The approximate formula is wavelength in meters equals 300 divided by frequency in MHz. Frequency and wavelength describe the same wave: as frequency increases, wavelength gets shorter. The 2.04-meter note points to about 147 MHz, but it does not tell you which channel to use. We are using 146.500 MHz. Radio waves travel through free space at about 300 million meters per second, the speed of light. All radio frequencies travel at that same speed. A radio wave has an electric field and a magnetic field at right angles to each other. Its polarization is defined by the orientation of the electric field. The bands are named by frequency and approximate wavelength: HF is 3–30 MHz, VHF is 30–300 MHz, and UHF is 300–3000 MHz. I have to cross the ridge. Find Elias on 146.480 MHz. He may know which way I went.”",
+            "responses": [
+              {
+                "text": "Tune to 146.480 MHz FM and contact Elias.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "elias-line-of-sight",
+      "name": "Elias — The Ridge",
+      "match": { "frequency": 146.48, "mode": "FM" },
+      "conversation": {
+        "start": "blocked-path",
+        "nodes": {
+          "blocked-path": {
+            "text": "Elias answers from the lower slope. “Mara crossed the ridge. VHF and UHF signals normally travel by line of sight, so a mountain can block the direct path. The radio horizon is a little farther away than the visual horizon because the atmosphere refracts radio waves slightly. UHF simplex signals are rarely heard beyond their radio horizon because UHF is not usually propagated by the ionosphere.”",
+            "responses": [
+              {
+                "text": "Climb toward the ridge and look for another path to the station.",
+                "next": "terrain"
+              }
+            ]
+          },
+          "terrain": {
+            "text": "“A blocked path is not always the end,” Elias says. “A signal may reach a station by reflecting from a surface. A sharp ridge can also diffract some of the signal around its edge; that is knife-edge diffraction. Try a different position instead of simply turning up the power. Remember the environment too. Vegetation absorbs UHF and microwave signals, which can make weak signals difficult to receive. Precipitation can reduce range at microwave frequencies, but rain and fog have little effect on 6-meter and 10-meter signals. Try the quarry station on 446.000 MHz. It is on UHF, and the trees between you may matter.”",
+            "responses": [
+              {
+                "text": "Move to a clearer position and tune to 446.000 MHz FM.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "quarry-uhf",
+      "name": "Quarry Station — A Clearer Path",
+      "match": { "frequency": 446.000, "mode": "FM" },
+      "conversation": {
+        "start": "contact",
+        "nodes": {
+          "contact": {
+            "text": "A station near the quarry answers. The signal becomes much stronger when you move out of the trees. “That is UHF absorption by vegetation,” the operator says. “For a distant repeater blocked by buildings or a ridge, a directional antenna may still work if you find a path that reflects the signal toward it, or a route that uses diffraction around a sharp edge. The direct path is not the only path.”",
+            "responses": [
+              {
+                "text": "Record the lesson and move to the 146.460 MHz test channel.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "multipath-fading",
+      "name": "Elias — The Moving Signal",
+      "match": { "frequency": 146.46, "mode": "FM" },
+      "conversation": {
+        "start": "flutter",
+        "nodes": {
+          "flutter": {
+            "text": "Elias is moving along the road. His signal flutters rapidly, breaking up and returning like a picket fence. “Move your radio only a few feet,” he says. “Notice how the signal changes. The direct signal and signals reflected from nearby objects can arrive together. Sometimes they reinforce each other; sometimes they cancel. That is multipath propagation.”",
+            "responses": [
+              {
+                "text": "Move a few feet and listen again.",
+                "next": "effects"
+              }
+            ]
+          },
+          "effects": {
+            "text": "The signal becomes clearer in the new position. Elias continues: “Rapid flutter on a moving station is called picket fencing. Multipath can also increase error rates in data transmissions. Ionospheric signals can fade irregularly for a related reason: signals arriving by different paths combine randomly, sometimes reinforcing and sometimes weakening one another.”",
+            "responses": [
+              {
+                "text": "Ask the next station about antenna orientation.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "polarization-ssb",
+      "name": "High Ridge Station — Antenna Orientation",
+      "match": { "frequency": 144.200, "mode": "USB" },
+      "conversation": {
+        "start": "orientation",
+        "nodes": {
+          "orientation": {
+            "text": "A clear single-sideband voice answers from a distant ridge. “For long-distance CW and SSB contacts on VHF and UHF, horizontal polarization is normally used. If one station uses a vertical antenna and the other uses a horizontal antenna on a line-of-sight path, the cross-polarization reduces received signal strength. Polarization is the orientation of the wave's electric field. But an ionospheric signal is elliptically polarized, so either a vertical or horizontal antenna may be used for transmission or reception after the signal has traveled through the ionosphere.”",
+            "responses": [
+              {
+                "text": "Use horizontal polarization for this VHF SSB contact, and remember the ionospheric exception.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "sporadic-e",
+      "name": "Six-Meter Station — An Unexpected Opening",
+      "match": { "frequency": 52.525, "mode": "FM" },
+      "conversation": {
+        "start": "opening",
+        "nodes": {
+          "opening": {
+            "text": "A surprisingly strong signal arrives from far beyond the normal radio horizon. The operator sounds as surprised as you are. “We have an opening on six meters. This is sporadic E propagation. It can produce occasional strong signals from beyond the radio horizon on the 10-meter, 6-meter, and 2-meter bands.”",
+            "responses": [
+              {
+                "text": "Recognize the unusual long-distance VHF signal as sporadic E.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "tropospheric-ducting",
+      "name": "Valley Station — The Temperature Inversion",
+      "match": { "frequency": 147.480, "mode": "FM" },
+      "conversation": {
+        "start": "inversion",
+        "nodes": {
+          "inversion": {
+            "text": "A distant station comes through clearly across the valley. “The cold air is trapped below a warmer layer this morning,” the operator explains. “That temperature inversion can create tropospheric ducting. The duct guides VHF and UHF signals beyond the normal horizon. Under suitable conditions, contacts around 300 miles can occur on a regular basis.”",
+            "responses": [
+              {
+                "text": "Identify the temperature inversion as the cause of tropospheric ducting.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "meteor-scatter",
+      "name": "Six-Meter SSB — Brief Reflections",
+      "match": { "frequency": 50.125, "mode": "USB" },
+      "conversation": {
+        "start": "bursts",
+        "nodes": {
+          "bursts": {
+            "text": "A signal appears in a short burst, then vanishes. A distant operator explains: “Meteor scatter uses the ionized trails left by meteors to reflect radio signals for brief periods. The 6-meter band is best suited for meteor-scatter communication. You may only have a short opening to exchange information.”",
+            "responses": [
+              {
+                "text": "Wait for another burst and copy the brief message.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "auroral-backscatter",
+      "name": "Northern Station — The Raspy Signal",
+      "match": { "frequency": 50.150, "mode": "USB" },
+      "conversation": {
+        "start": "rasp",
+        "nodes": {
+          "rasp": {
+            "text": "The voice is distorted, rough, and raspy. It is difficult to understand, but the operator confirms the contact. “That sound is characteristic of VHF auroral backscatter. The signal is being scattered by the aurora, so it does not sound like an ordinary clear line-of-sight contact.”",
+            "responses": [
+              {
+                "text": "Recognize the raspy VHF signal as auroral backscatter.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "hf-f-region",
+      "name": "Long-Haul Station — The F Region",
+      "match": { "frequency": 28.400, "mode": "USB" },
+      "conversation": {
+        "start": "skywave",
+        "nodes": {
+          "skywave": {
+            "text": "A station far away answers with a strong, steady signal. “This is the 10-meter band, part of HF. Long-distance ionospheric propagation is much more common on HF than on VHF and higher frequencies. The ionosphere, especially the F region, can refract or return HF radio waves toward Earth. It is often described as reflection or skywave propagation. For long-distance 10-meter propagation via the F region, the best time is from dawn to shortly after sunset when sunspot activity is high. Near the peak of the sunspot cycle, both 6-meter and 10-meter signals may support long-distance F-region contacts. The conditions are favorable this morning.”",
+            "responses": [
+              {
+                "text": "Use the 10-meter HF band during daylight and try Mara on 28.420 MHz USB.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "mara-final-contact",
+      "name": "Mara — Across the Distance",
+      "match": {
+        "frequency": 28.420,
+        "mode": "USB",
+        "antenna": [
+          "dipole-40m",
+          "hf-vertical"
+        ]
+      },
+      "conversation": {
+        "start": "contact",
+        "nodes": {
+          "contact": {
+            "text": "A familiar voice breaks through the noise. “This is Mara. I hear you. The ridge blocked my local VHF path, so I waited for a usable HF opening. The F region carried the 10-meter signal back toward Earth. You found the right band and the right time. The ionospheric signal is elliptically polarized, so either a vertical or horizontal HF antenna can work. You did not need to guess at one perfect orientation. You needed to understand the path the signal was taking.”",
+            "responses": [
+              {
+                "text": "Confirm the contact and ask whether Mara is safe.",
+                "next": "resolution"
+              }
+            ]
+          },
+          "resolution": {
+            "text": "“I'm safe for now,” Mara replies. “The Watchers are still searching the valley, but the ridge and the changing propagation conditions gave me a way to reach you. You learned that a signal does not always travel in a straight line. Tomorrow, we work on keeping the equipment itself alive.”",
+            "responses": [
+              {
+                "text": "End the contact and complete Chapter 2.",
+                "next": null,
+                "chapterComplete": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
