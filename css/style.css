@@ -4,9 +4,10 @@ h1{margin:0;color:#ffb300}h2{margin-top:0}
 main{display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,1fr);gap:1rem;padding:1rem}
 .panel{background:#272b30;border-radius:8px;padding:1rem}
 #editor{grid-column:1/-1}
-#chapter-info{background:#3a3324;border-left:4px solid #ffb300;border-radius:4px;padding:.65rem .8rem;margin-bottom:.6rem}
+#chapter-info{display:flex;justify-content:space-between;align-items:center;gap:1rem;background:#3a3324;border-left:4px solid #ffb300;border-radius:4px;padding:.65rem .8rem;margin-bottom:.6rem}
 #chapter-heading{display:block;color:#ffca55;font-size:1.15rem}
 #chapter-conditions{margin-top:.25rem;color:#f0e2c3}
+#chapter-picker{min-width:9rem}
 .radio-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:.5rem;align-items:start}
 fieldset{min-width:0;border:1px solid #59616a;border-radius:6px;margin:.8rem 0;padding:.8rem}
 legend{padding:0 .4rem;color:#ffca55;font-weight:600}
@@ -32,4 +33,4 @@ button{cursor:pointer;background:#37526b}button:hover{background:#45688a}
 #swr-result{align-self:end;margin:.2rem 0;color:#ffca55}
 textarea{width:100%;box-sizing:border-box;font-family:monospace}
 @media (max-width:900px){main{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:700px){.radio-layout{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:700px){.radio-layout{grid-template-columns:minmax(0,1fr)}#chapter-info{align-items:stretch;flex-direction:column}#chapter-picker{min-width:0}}

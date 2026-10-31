@@ -7,6 +7,8 @@ A web-based game to help players pass the US amateur radio (HAM) exams. The UI i
     npm start        # serves on http://localhost:8000
     npm test         # radio/scenario logic tests
 
+Use the Chapter selector above the Radio Log to switch chapters directly. Your selected chapter and scenario edits are saved in the browser.
+
 ## Writing scenarios
 ### Create a chapter
 1. Create a JSON file in `data/` named for its chapter, for example `scenario2.json`. Chapter 1 is `data/scenario1.json`.

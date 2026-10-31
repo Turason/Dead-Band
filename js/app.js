@@ -1,7 +1,7 @@
 (function () {
   const $ = id => document.getElementById(id);
   const state = Radio.defaultState();
-  let scenario = null, conv = null, right = 0, asked = 0, chapterManifest = null, chapterIndex = 0;
+  let scenario = null, conv = null, right = 0, asked = 0, chapterManifest = null, chapterIndex = 0, chapterLoadId = 0;
   const STORE_PREFIX = 'deadband.chapter.';
   const CURRENT_CHAPTER_STORE = 'deadband.currentChapter';
 
@@ -51,6 +51,7 @@
     });
     $('listen').addEventListener('click', listen);
     $('ptt').addEventListener('click', transmit);
+    $('chapter-select').addEventListener('change', () => loadChapter(Number($('chapter-select').value)));
     $('apply').addEventListener('click', applyEditor);
     $('download').addEventListener('click', download);
     $('reset').addEventListener('click', resetCurrentChapter);
@@ -76,6 +77,8 @@
         const errs = Radio.validateChapterManifest(manifest);
         if (errs.length) throw new Error(errs.join('; '));
         chapterManifest = manifest;
+        const selector = $('chapter-select');
+        manifest.chapters.forEach((chapter, index) => opt(selector, String(index), 'Chapter ' + (index + 1)));
         const savedId = localStorage.getItem(CURRENT_CHAPTER_STORE);
         let index = manifest.chapters.findIndex(chapter => chapter.id === savedId);
         if (index < 0) {
@@ -87,9 +90,11 @@
       .catch(e => log('sys', 'Could not load chapters: ' + e.message));
   }
   function loadChapter(index) {
+    const requestId = ++chapterLoadId;
     const entry = chapterManifest && chapterManifest.chapters[index];
     if (!entry) {
       log('sys', 'Cannot load Chapter ' + (index + 1) + ': chapter is not listed.');
+      $('chapter-select').value = String(chapterIndex);
       return;
     }
     const saved = localStorage.getItem(STORE_PREFIX + entry.id);
@@ -100,8 +105,16 @@
         return r.json();
       });
     request.then(sc => {
-      if (!setScenario(sc, index)) log('sys', 'Could not load Chapter ' + (index + 1) + ': scenario validation failed.');
-    }).catch(e => log('sys', 'Could not load Chapter ' + (index + 1) + ': ' + e.message));
+      if (requestId !== chapterLoadId) return;
+      if (!setScenario(sc, index)) {
+        $('chapter-select').value = String(chapterIndex);
+        log('sys', 'Could not load Chapter ' + (index + 1) + ': scenario validation failed.');
+      }
+    }).catch(e => {
+      if (requestId !== chapterLoadId) return;
+      $('chapter-select').value = String(chapterIndex);
+      log('sys', 'Could not load Chapter ' + (index + 1) + ': ' + e.message);
+    });
   }
   function setScenario(sc, index) {
     const errs = Radio.validateScenario(sc);
@@ -117,6 +130,8 @@
     document.title = sc.title || document.title;
     $('dtmf-controls').hidden = !(sc.features && sc.features.dtmf === true);
     $('chapter-heading').textContent = 'Chapter ' + (index + 1) + ': ' + (sc.chapterTitle || sc.title || '');
+    $('chapter-select').value = String(index);
+    $('chapter-select').options[index].textContent = 'Chapter ' + (index + 1) + ': ' + (sc.chapterTitle || sc.title || '');
     $('chapter-conditions').textContent = sc.day + '  |  Local time: ' + sc.time + '  |  Weather: ' + sc.weather;
     if (!$('dtmf-controls').hidden) log('sys', '[DTMF keypad available in this chapter.]');
     if (sc.intro) log('sys', sc.intro);
