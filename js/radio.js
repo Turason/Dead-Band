@@ -68,6 +68,63 @@
     return Math.max(0, Math.min(10, baseline + (s.preamp ? 2 : 0) - (s.attenuator ? 3 : 0) + (s.rfGain - 10) / 2));
   }
 
+  function validateRadioSettings(settings) {
+    if (!settings || typeof settings !== 'object' || Array.isArray(settings)) return ['must be an object'];
+    const errors = [];
+    const required = ['frequency', 'mode', 'step', 'offsetDir', 'offsetMHz', 'ctcssTx', 'ctcssRx', 'dcs',
+      'power', 'bandwidth', 'ritHz', 'reverse', 'dmr', 'antenna', 'antennaOrientation',
+      'antennaDirection', 'antennaHeight', 'tuner', 'feedLine', 'powerSupply', 'preamp', 'attenuator',
+      'squelch', 'volume', 'rfGain'];
+    required.forEach(key => {
+      if (!Object.prototype.hasOwnProperty.call(settings, key) || settings[key] == null) errors.push(key + ' is required');
+    });
+    const oneOf = (key, values) => {
+      if (settings[key] != null && !values.includes(settings[key])) errors.push(key + ' is invalid');
+    };
+    const number = (key, min, max) => {
+      if (settings[key] != null && (!Number.isFinite(settings[key]) || settings[key] < min ||
+        (max != null && settings[key] > max))) errors.push(key + ' is out of range');
+    };
+    number('frequency', Number.MIN_VALUE);
+    oneOf('mode', MODES);
+    oneOf('step', [0.0005, 0.005, 0.0125, 0.025, 0.1, 1]);
+    oneOf('offsetDir', ['OFF', '+', '-']);
+    number('offsetMHz', 0);
+    oneOf('ctcssTx', ['OFF'].concat(CTCSS_TONES));
+    oneOf('ctcssRx', ['OFF'].concat(CTCSS_TONES));
+    oneOf('dcs', ['OFF'].concat(DCS_CODES));
+    if (settings.power != null && powerWatts(settings) === 0) errors.push('power is invalid');
+    oneOf('bandwidth', ['WIDE', 'NARROW']);
+    number('ritHz', -1000, 1000);
+    if (settings.reverse != null && typeof settings.reverse !== 'boolean') errors.push('reverse must be a boolean');
+    if (!settings.dmr || typeof settings.dmr !== 'object' || Array.isArray(settings.dmr)) {
+      errors.push('dmr must be an object');
+    } else {
+      ['colorCode', 'talkgroup', 'timeSlot'].forEach(key => {
+        if (!Number.isInteger(settings.dmr[key])) errors.push('dmr.' + key + ' must be an integer');
+      });
+      if (Number.isInteger(settings.dmr.colorCode) && (settings.dmr.colorCode < 0 || settings.dmr.colorCode > 15))
+        errors.push('dmr.colorCode is out of range');
+      if (Number.isInteger(settings.dmr.talkgroup) && settings.dmr.talkgroup < 1)
+        errors.push('dmr.talkgroup is out of range');
+      if (![1, 2].includes(settings.dmr.timeSlot)) errors.push('dmr.timeSlot is invalid');
+    }
+    oneOf('antenna', ANTENNAS.map(a => a.id));
+    oneOf('antennaOrientation', ['VERTICAL', 'HORIZONTAL']);
+    number('antennaDirection', 0, 359);
+    if (settings.antennaDirection != null && !Number.isInteger(settings.antennaDirection))
+      errors.push('antennaDirection must be an integer');
+    number('antennaHeight', 0);
+    oneOf('tuner', ['BYPASS', 'TUNE']);
+    oneOf('feedLine', FEED_LINES.map(line => line.id));
+    oneOf('powerSupply', ['battery', 'mains', 'generator']);
+    ['preamp', 'attenuator'].forEach(key => {
+      if (settings[key] != null && typeof settings[key] !== 'boolean') errors.push(key + ' must be a boolean');
+    });
+    ['squelch', 'volume', 'rfGain'].forEach(key => number(key, 0, 10));
+    return errors;
+  }
+
   function bearingDifference(a, b) {
     return Math.abs(((a - b + 540) % 360) - 180);
   }
@@ -139,6 +196,9 @@
   function validateScenario(sc) {
     const errors = [];
     if (!sc || !Array.isArray(sc.stations)) return ['scenario.stations must be an array'];
+    if (sc.radioSettings != null) {
+      validateRadioSettings(sc.radioSettings).forEach(error => errors.push('scenario.radioSettings ' + error));
+    }
     if (sc.features != null && (!sc.features || typeof sc.features !== 'object' || Array.isArray(sc.features))) {
       errors.push('scenario.features must be an object');
     } else if (sc.features && sc.features.dtmf != null && typeof sc.features.dtmf !== 'boolean') {
@@ -190,6 +250,6 @@
 
   return { MODES, CTCSS_TONES, POWER_LEVELS, ANTENNAS, defaultState, offsetSigned, txFrequency, antennaById,
     DCS_CODES, FEED_LINES, powerWatts, antennaFits, estimateSWR, signalStrength, rxFrequency, matchStation, findStation,
-    startConversation, currentNode, choose, validateScenario,
+    startConversation, currentNode, choose, validateRadioSettings, validateScenario,
     validateChapterManifest };
 });

@@ -3,9 +3,20 @@ const assert = require('node:assert');
 const R = require('../js/radio.js');
 const sc = require('../data/scenario1.json');
 const chapters = require('../data/chapters.json');
+const scenarios = chapters.chapters.map(chapter => require('../data/' + chapter.file));
 
 test('scenario validates', () => assert.deepStrictEqual(R.validateScenario(sc), []));
 test('chapter manifest validates', () => assert.deepStrictEqual(R.validateChapterManifest(chapters), []));
+test('all chapter radio presets validate and match their opening station', () => {
+  scenarios.forEach(scenario => {
+    assert.deepStrictEqual(R.validateScenario(scenario), []);
+    assert.deepStrictEqual(R.validateRadioSettings(scenario.radioSettings), []);
+    const state = Object.assign(R.defaultState(), scenario.radioSettings, {
+      dmr: Object.assign({}, scenario.radioSettings.dmr)
+    });
+    assert.strictEqual(R.findStation(scenario.stations, state, true), scenario.stations[0]);
+  });
+});
 
 test('radio power options and repeater receive/transmit controls', () => {
   const s = R.defaultState();

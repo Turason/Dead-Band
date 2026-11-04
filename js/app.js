@@ -119,6 +119,10 @@
   function setScenario(sc, index) {
     const errs = Radio.validateScenario(sc);
     if (errs.length) { $('editor-msg').textContent = errs.join('; '); return false; }
+    if (sc.radioSettings) {
+      Object.assign(state, sc.radioSettings, { dmr: Object.assign({}, sc.radioSettings.dmr) });
+      syncRadioControls();
+    }
     chapterIndex = index;
     localStorage.setItem(CURRENT_CHAPTER_STORE, chapterManifest.chapters[index].id);
     scenario = sc; conv = null; right = asked = 0;
@@ -135,7 +139,20 @@
     $('chapter-conditions').textContent = sc.day + '  |  Local time: ' + sc.time + '  |  Weather: ' + sc.weather;
     if (!$('dtmf-controls').hidden) log('sys', '[DTMF keypad available in this chapter.]');
     if (sc.intro) log('sys', sc.intro);
+    refresh();
     return true;
+  }
+  function syncRadioControls() {
+    ['mode', 'power', 'offsetDir', 'offsetMHz', 'ctcssTx', 'ctcssRx', 'dcs', 'bandwidth',
+      'ritHz', 'reverse', 'step', 'antenna', 'antennaOrientation', 'antennaDirection',
+      'antennaHeight', 'tuner', 'feedLine', 'powerSupply', 'preamp', 'attenuator',
+      'squelch', 'volume', 'rfGain', 'dmrColorCode', 'dmrTalkgroup', 'dmrTimeSlot'].forEach(id => {
+      const value = id === 'dmrColorCode' ? state.dmr.colorCode :
+        id === 'dmrTalkgroup' ? state.dmr.talkgroup :
+          id === 'dmrTimeSlot' ? state.dmr.timeSlot : state[id];
+      if (id === 'reverse') $(id).checked = value;
+      else $(id).value = String(value);
+    });
   }
   function applyEditor() {
     try {

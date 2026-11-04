@@ -70,4 +70,6 @@ Station `match` fields are optional requirements. Supported fields include `freq
 
 DTMF is chapter-gated: add `"features": {"dtmf": true}` to a chapter to show its keypad; otherwise it is hidden. This unlock is chapter-specific and does not carry into other chapters. To define responses, add a station `dtmfSequences` object whose keys are digit sequences and whose values are response text. The keypad accepts digits 0–9, A–D, `*`, and `#`. The current chapter has DTMF disabled. Stations may set `signalStrength` (0–10); preamp, attenuator, RF gain, and squelch affect the displayed/received signal.
 
+Each scenario may define a complete `radioSettings` preset for the transceiver and station setup. It is applied whenever that chapter loads; include frequency, mode, step, offset direction/size, CTCSS TX/RX, DCS, power, bandwidth, RIT, reverse, DMR settings, antenna/orientation/direction/height, tuner, feed line, power supply, preamp, attenuator, squelch, volume, and RF gain. A scenario without a preset leaves the current settings unchanged.
+
 Each station has a `conversation` graph: nodes with `text` and player `responses` (`text`, `next`, optional `feedback`/`correct`). A `next` of `null` ends the contact. Stations may also have `beacon` text heard on Listen.
