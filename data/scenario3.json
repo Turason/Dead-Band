@@ -1,0 +1,261 @@
+{
+  "title": "Dead Band — Chapter 3: The Rules We Kept",
+  "chapterTitle": "Safety and Commission Rules",
+  "day": "Day 3",
+  "time": "09:10",
+  "weather": "Cold rain easing; wet ground and gusts along the ridge",
+  "intro": "Mara is back on the air. Her voice is tired but steady. The old county relay station may restore reliable coverage across the valley. It still has its battery bank, AC power supply, feed line, and tower—but it has been abandoned for months. Before anyone powers it up or touches the tower, the crew is going to inspect it. Today is a briefing, not a repair job. Get your notebook. You need to understand two things before you operate: how not to hurt yourself, and how to share the air with everyone else.",
+  "features": {
+    "dtmf": false
+  },
+  "stations": [
+    {
+      "id": "mara-safety-briefing",
+      "name": "Mara — The Old County Station",
+      "match": {
+        "frequency": 147.46,
+        "mode": "FM"
+      },
+      "conversation": {
+        "start": "assignment",
+        "nodes": {
+          "assignment": {
+            "text": "Mara answers. “Yesterday you found me across the ridge. Now we need to bring the old county relay station back into service. It could give the valley a reliable link again. But the battery bank, mains supply, coax, and tower have all been sitting out here. We are not switching anything on or climbing anything until it has been inspected.”",
+            "responses": [
+              {
+                "text": "Ask why there is a separate briefing before the work begins.",
+                "next": "why-rules"
+              }
+            ]
+          },
+          "why-rules": {
+            "text": "“Two reasons. First, electricity and antennas can injure you even when the equipment looks harmless. Second, radios are a shared resource. The old FCC is gone, but we kept its Amateur Radio Service rules—Part 97—as our network charter. Not because someone is waiting to issue fines, but because the rules let strangers share the same air without turning every channel into a shouting match. Elias will brief you on power safety. Contact him on 147.500 MHz FM.”",
+            "responses": [
+              {
+                "text": "Tune to 147.500 MHz FM and contact Elias.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "elias-electrical-safety",
+      "name": "Elias — The Power Room",
+      "match": {
+        "frequency": 147.5,
+        "mode": "FM"
+      },
+      "conversation": {
+        "start": "battery-bank",
+        "nodes": {
+          "battery-bank": {
+            "text": "Elias speaks from the station doorway. “Start with the battery bank. A 12-volt storage battery can deliver enormous current. If a metal tool bridges its terminals, it can become red-hot and cause severe burns, fire, or even an explosion. That is different from an ordinary electric shock: current passing through your body can heat tissue, disrupt the electrical functions of cells, and cause involuntary muscle contractions. Never let your body become the path between points at different voltages. Don't improvise a short-circuit test.”",
+            "responses": [
+              {
+                "text": "Ask what to look for in the station's wiring and fuses.",
+                "next": "fuses-and-wiring"
+              }
+            ]
+          },
+          "fuses-and-wiring": {
+            "text": "“A fuse is a safety link. It opens the circuit when excessive current flows. Use the specified rating—never replace a 5-amp fuse with a 20-amp fuse or bypass it. The larger fuse may let the wiring overheat and start a fire. Use wires, connectors, and other components rated for the voltage and current they must carry; parts are not interchangeable just because they fit. In a 120-volt AC cable, black is the hot conductor. A fuse or circuit breaker belongs in series with the hot conductor.”",
+            "responses": [
+              {
+                "text": "Ask whether switching the power supply off makes it safe to open.",
+                "next": "stored-charge"
+              }
+            ]
+          },
+          "stored-charge": {
+            "text": "“No. A power supply can contain filter capacitors that retain a dangerous charge after the switch is off. Don't open the supply or assume it is safe because it is unplugged. A trained person must verify that it is discharged. Use three-wire cords and plugs, and a common safety ground for AC-powered station equipment. Anyone measuring high voltage must use a meter and leads rated for that voltage.”",
+            "responses": [
+              {
+                "text": "Ask what must be checked before reconnecting the antenna feed line.",
+                "next": "grounding-and-lightning"
+              }
+            ]
+          },
+          "grounding-and-lightning": {
+            "text": "“Grounding and lightning protection are part of the installation, not optional extras. External ground rods and earth connections must be bonded together. The coax lightning arrester belongs on a grounded panel near where the feed lines enter the building. Ground conductors should be short and direct, without sharp bends. Local electrical codes establish the grounding requirements. Don't invent a shortcut and call it a ground.”",
+            "responses": [
+              {
+                "text": "Leave the mains supply isolated and contact Ruth about the tower at 147.520 MHz.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "ruth-tower-safety",
+      "name": "Ruth — The Antenna Tower",
+      "match": {
+        "frequency": 147.52,
+        "mode": "FM"
+      },
+      "conversation": {
+        "start": "tower-inspection",
+        "nodes": {
+          "tower-inspection": {
+            "text": "Ruth is watching the tower from a safe distance. “We inspect this from the ground. Tower climbing is never a one-person job. It requires proper training, an approved climbing harness, appropriate tie-off at all times, and a helper or observer. Never climb alone. Look for overhead electrical wires. If the tower or antenna could fall and any part could come within 10 feet of power wires, the site is not safe. Never attach an antenna to a utility pole.”",
+            "responses": [
+              {
+                "text": "Ask about the tower's mechanical supports and guy wires.",
+                "next": "supports-and-grounding"
+              }
+            ]
+          },
+          "supports-and-grounding": {
+            "text": "“A crank-up tower must be retracted, or secured with its mechanical safety locks, before anyone climbs it. Safety wire through a guy-line turnbuckle prevents vibration from loosening it. Tower grounding must follow local electrical codes; the grounding system needs proper rods bonded to the tower and to one another. Lightning conductors should be short and direct, with no sharp bends. A tower is a structural system, not just a pole with an antenna on top.”",
+            "responses": [
+              {
+                "text": "Mark the tower as no-climb and wait for a trained crew to inspect it.",
+                "next": "stop-work"
+              }
+            ]
+          },
+          "stop-work": {
+            "text": "“Good. Sometimes the safest repair is to stop. We do not climb until the structure, power-line clearance, and grounding have been checked and a trained crew is present. Contact Nina on 147.540 MHz. She will explain a hazard you cannot see or smell: RF exposure.”",
+            "responses": [
+              {
+                "text": "Tune to 147.540 MHz FM and contact Nina.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "nina-rf-safety",
+      "name": "Nina — RF Exposure",
+      "match": {
+        "frequency": 147.54,
+        "mode": "FM"
+      },
+      "conversation": {
+        "start": "radiation-type",
+        "nodes": {
+          "radiation-type": {
+            "text": "Nina answers from the control room. “Radio signals are non-ionizing radiation. They do not have enough energy to cause chemical changes in cells or damage DNA in the way ionizing radiation can. But non-ionizing does not mean harmless at every power level. Strong RF can heat body tissue. Touching an antenna while it is transmitting can cause an RF burn.”",
+            "responses": [
+              {
+                "text": "Ask what determines how much RF exposure a person receives.",
+                "next": "exposure-factors"
+              }
+            ]
+          },
+          "exposure-factors": {
+            "text": "“Exposure depends on frequency, power, distance from the antenna, and the antenna's radiation pattern. Duty cycle is the percentage of time the transmitter is actually transmitting. A lower duty cycle reduces average exposure. Under the exposure-averaging rules, changing from a 100-percent to a 50-percent duty cycle doubles the allowable average power density. That is something to calculate, not an excuse to stand next to an antenna.”",
+            "responses": [
+              {
+                "text": "Ask how a station checks and maintains RF safety compliance.",
+                "next": "compliance"
+              }
+            ]
+          },
+          "compliance": {
+            "text": "“Exposure limits vary with frequency because the human body absorbs RF energy differently at different frequencies. Compliance can be evaluated by calculation, computer modeling, or measurement with calibrated equipment. If the transmitter or antenna system changes, evaluate exposure again. Moving an antenna farther from people can reduce exposure. The station licensee is responsible for ensuring that no one is exposed above the FCC limits. Until this site has been evaluated, keep people away from the antenna whenever it transmits.”",
+            "responses": [
+              {
+                "text": "Keep the antenna area clear and return to Valley Net Control on 147.150 MHz.",
+                "next": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "valley-net-charter",
+      "name": "Valley Net Control — The Network Charter",
+      "match": {
+        "frequency": 147.15,
+        "mode": "FM",
+        "offset": 0.6,
+        "ctcssTx": "100.0"
+      },
+      "conversation": {
+        "start": "purpose-and-authority",
+        "nodes": {
+          "purpose-and-authority": {
+            "text": "“Valley Net Control, K7NCS. Good to hear you again. Now the rules. In the United States, the FCC regulates the Amateur Radio Service; the ARRL is not the regulator. The service exists for self-training, advancing technical and communication skills, intercommunication, technical investigation, and public service. We kept the old FCC Part 97 rules as our charter. The spectrum belongs to no single operator. We share it, so we need common expectations.”",
+            "responses": [
+              {
+                "text": "Ask how the rules determine where and how each station may transmit.",
+                "next": "spectrum-and-band-plans"
+              }
+            ]
+          },
+          "spectrum-and-band-plans": {
+            "text": "“Your license class determines which frequencies and modes you may use. Privileges vary by band segment and emission type; being authorized on a band does not mean every mode is allowed everywhere. Technician phone privileges on HF are limited to the 10-meter segment from 28.300 to 28.500 MHz. Some allocations are secondary, which means amateurs must avoid interfering with primary users. Don't transmit exactly at a band or sub-band edge: display error, transmitter drift, and modulation sidebands can put energy outside the authorized segment.\n\n“A band plan is a voluntary guide for dividing a band among modes and activities. Local volunteer frequency coordinators, selected by area amateurs, recommend channels for repeaters and auxiliary stations; they do not replace the FCC or create legal frequency privileges. Propagation beacons are another special use: on 10 meters, automatically controlled amateur propagation beacons operate from 28.200 to 28.300 MHz. Technicians may also contact the International Space Station on VHF. The old rules set power ceilings—generally 200 watts PEP in Technician HF segments and 1,500 watts PEP above 30 MHz, subject to specific restrictions. Those are ceilings, not targets. Willful or malicious interference is prohibited; if two stations interfere, coordinate and move rather than trying to overpower one another.”",
+            "responses": [
+              {
+                "text": "Ask what the license itself grants and how it stays valid.",
+                "next": "licenses-and-callsigns"
+              }
+            ]
+          },
+          "licenses-and-callsigns": {
+            "text": "“The FCC currently issues Technician, General, and Amateur Extra licenses. A license grant becomes effective when it appears in the FCC Universal Licensing System database; a test-completion certificate by itself is not permission to transmit. The normal license term is ten years. Renewal may be requested up to 90 days before expiration. There is a two-year grace period after expiration, but you may not transmit until the license is renewed. Keep your mailing address and email current so the FCC can reach you. Call signs are normally assigned sequentially, although any licensed amateur may request an available vanity call sign. International communication must be incidental to Amateur Radio Service purposes or personal in character; do not contact a country whose administration has formally objected to such communications.”",
+            "responses": [
+              {
+                "text": "Ask who is responsible for controlling a station.",
+                "next": "control-operator"
+              }
+            ]
+          },
+          "control-operator": {
+            "text": "“Every amateur station must have a control operator. The station licensee designates that operator, and the operator's license class determines the privileges used for the transmission. If the control operator is not the licensee, both share responsibility for proper operation. The control point is where the control-operator function is performed. Automatic control means the station can operate automatically under the rules—repeaters are an example. Remote control means an operator controls a station from another location, such as over the internet. Automatic does not mean uncontrolled.”",
+            "responses": [
+              {
+                "text": "Ask how stations identify themselves and handle messages for others.",
+                "next": "identification-and-third-party"
+              }
+            ]
+          },
+          "identification-and-third-party": {
+            "text": "“Identify with your assigned call sign at least every ten minutes during a communication and at its end. Phone identification is in English, using a phone or CW emission. The phonetic alphabet is encouraged when speaking, especially when conditions are noisy. Tactical names such as ‘Valley Net’ are useful, but they do not replace the assigned call sign. Identify even when making test transmissions.\n\n“A third-party communication is a message passed from one control operator to another on behalf of someone else. That is normal in message handling, but international third-party traffic requires an agreement with the other country. If a repeater retransmits an improper transmission, responsibility remains with the originating station's control operator. A station and its records must be made available for FCC inspection upon request. A club station license requires at least four members.”",
+            "responses": [
+              {
+                "text": "Ask which kinds of transmissions the network rules prohibit.",
+                "next": "prohibited-transmissions"
+              }
+            ]
+          },
+          "prohibited-transmissions": {
+            "text": "“Amateur frequencies are not for broadcasting to the general public, routine business, or messages encoded to obscure their meaning. Ordinary digital modes and procedural abbreviations are fine; encryption or secret codes intended to hide message content are generally prohibited, with a narrow exception for control commands to space stations or model craft. Obscene or indecent language is prohibited. Music is generally prohibited except when incidental to an authorized retransmission of manned-spacecraft communications. Operators generally may not be compensated for operating, with narrow exceptions such as communications that are part of classroom instruction at an educational institution. You may announce an occasional personal sale or trade of amateur equipment, but not run a regular sales business over the air.”",
+            "responses": [
+              {
+                "text": "Ask whether emergencies change the rules.",
+                "next": "emergency-services"
+              }
+            ]
+          },
+          "emergency-services": {
+            "text": "“An emergency does not erase every rule. Part 97 still applies; narrow exceptions allow operation outside normal privileges when necessary for the immediate safety of human life or protection of property. ARES is a volunteer service of licensed amateurs who register their qualifications and equipment for public-service communications. RACES is a separate civil-defense service under Part 97. A RACES control operator needs an amateur license and current enrollment certified by a civil-defense organization. ARES membership alone does not qualify someone to operate a RACES station.”",
+            "responses": [
+              {
+                "text": "Report that the site remains isolated: power is off, the tower is no-climb, and RF evaluation is still required.",
+                "next": "acknowledgement"
+              }
+            ]
+          },
+          "acknowledgement": {
+            "text": "“Report received,” K7NCS replies. “Good work. The old rules are not a ritual. They are how we keep a shared channel usable and how we know who is responsible for a station. We will not activate the county site until the qualified crew completes its inspection. You now know the safety limits and the operating charter. Tomorrow, we put that knowledge to work at the station.”",
+            "responses": [
+              {
+                "text": "End the transmission and complete Chapter 3.",
+                "next": null,
+                "chapterComplete": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

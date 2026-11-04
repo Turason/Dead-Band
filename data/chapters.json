@@ -7,6 +7,10 @@
     {
       "id": "chapter-2",
       "file": "scenario2.json"
+    },
+    {
+      "id": "chapter-3",
+      "file": "scenario3.json"
     }
   ]
 }
