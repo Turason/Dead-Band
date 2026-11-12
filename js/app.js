@@ -49,7 +49,6 @@
         $('freq').value = state.frequency.toFixed(4); refresh();
       }
     });
-    $('listen').addEventListener('click', listen);
     $('ptt').addEventListener('click', transmit);
     $('chapter-select').addEventListener('change', () => loadChapter(Number($('chapter-select').value)));
     $('apply').addEventListener('click', applyEditor);
@@ -201,15 +200,6 @@
     $('smeter-bar').style.width = (hit && state.volume > 0 ? Radio.signalStrength(hit, state) * 10 : 10) + '%';
   }
 
-  function listen() {
-    if (!scenario) return;
-    const st = Radio.findStation(scenario.stations, state, false);
-    if (!st) { log('sys', 'Static... nothing heard.'); return; }
-    if (Radio.signalStrength(st, state) <= state.squelch) { log('sys', '(squelch closed)'); return; }
-    if (st.beacon) log('npc', '[' + st.name + '] ' + st.beacon);
-    else log('sys', 'Static... nothing heard.');
-  }
-
   function transmit() {
     if (!scenario) return;
     log('me', 'You transmit on ' + fmt(Radio.txFrequency(state)) + ' MHz (' + state.mode + ', ' + Radio.powerWatts(state) + ' W).');
@@ -222,13 +212,28 @@
     }
     conv = Radio.startConversation(st);
     if (!conv) return;
+    conv.heard = false;
     show();
   }
 
   function show() {
     const node = Radio.currentNode(conv);
-    log('npc', '[' + conv.station.name + '] ' + node.text);
     const box = $('responses'); box.innerHTML = '';
+    if (!conv.heard) {
+      const listenButton = document.createElement('button');
+      listenButton.textContent = 'Listen';
+      listenButton.addEventListener('click', () => {
+        if (Radio.signalStrength(conv.station, state) <= state.squelch) {
+          log('sys', '(squelch closed)');
+          return;
+        }
+        conv.heard = true;
+        log('npc', '[' + conv.station.name + '] ' + node.text);
+        show();
+      });
+      box.appendChild(listenButton);
+      return;
+    }
     (node.responses || []).forEach((r, i) => {
       const b = document.createElement('button'); b.textContent = r.text;
       b.addEventListener('click', () => answer(i)); box.appendChild(b);
@@ -245,7 +250,10 @@
       $('responses').innerHTML = ''; log('sys', '[Contact ended]'); conv = null;
       if (res.chapterComplete) offerNextChapter();
     }
-    else show();
+    else {
+      conv.heard = false;
+      show();
+    }
   }
   function offerNextChapter() {
     const nextIndex = chapterIndex + 1;

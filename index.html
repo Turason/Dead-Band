@@ -59,7 +59,6 @@
         </fieldset>
         <div class="radio-actions">
           <div class="buttons">
-            <button id="listen">Listen (monitor)</button>
             <button id="ptt">Push To Talk (hold, or click to call)</button>
           </div>
           <p id="tx-info"></p>
@@ -102,7 +101,7 @@
   <section id="editor" class="panel">
     <details>
       <summary>Scenario Editor (JSON)</summary>
-      <p>Edit the current chapter. Chapters are ordered in <code>data/chapters.json</code> and each points to a JSON file in <code>data/</code>. Include <code>day</code>, <code>time</code>, and <code>weather</code>. Add <code>"features": {"dtmf": true}</code> to reveal the DTMF keypad only in a chapter that introduces it. Mark the final response with <code>"chapterComplete": true</code> and <code>"next": null</code> to offer the next chapter. Station <code>match</code> can require radio or station settings; omitted fields are ignored. Stations may have <code>beacon</code> text for Listen, <code>signalStrength</code> from 0–10, and a <code>dtmfSequences</code> object mapping digit sequences to responses.</p>
+      <p>Edit the current chapter. Chapters are ordered in <code>data/chapters.json</code> and each points to a JSON file in <code>data/</code>. Include <code>day</code>, <code>time</code>, and <code>weather</code>. Add <code>"features": {"dtmf": true}</code> to reveal the DTMF keypad only in a chapter that introduces it. Mark the final response with <code>"chapterComplete": true</code> and <code>"next": null</code> to offer the next chapter. Station <code>match</code> can require radio or station settings; omitted fields are ignored. Stations may have <code>signalStrength</code> from 0–10 and a <code>dtmfSequences</code> object mapping digit sequences to responses. At each incoming transmission, choose Listen before responding.</p>
       <textarea id="scenario-json" rows="18" spellcheck="false"></textarea>
       <div class="buttons"><button id="apply">Apply scenario</button><button id="download">Download JSON</button><button id="reset">Reload default</button></div>
       <p id="editor-msg"></p>

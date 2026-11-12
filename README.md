@@ -72,4 +72,4 @@ DTMF is chapter-gated: add `"features": {"dtmf": true}` to a chapter to show its
 
 Each scenario may define a complete `radioSettings` preset for the transceiver and station setup. It is applied whenever that chapter loads; include frequency, mode, step, offset direction/size, CTCSS TX/RX, DCS, power, bandwidth, RIT, reverse, DMR settings, antenna/orientation/direction/height, tuner, feed line, power supply, preamp, attenuator, squelch, volume, and RF gain. A scenario without a preset leaves the current settings unchanged.
 
-Each station has a `conversation` graph: nodes with `text` and player `responses` (`text`, `next`, optional `feedback`/`correct`). A `next` of `null` ends the contact. Stations may also have `beacon` text heard on Listen.
+Each station has a `conversation` graph: nodes with `text` and player `responses` (`text`, `next`, optional `feedback`/`correct`). A `next` of `null` ends the contact. Choose **Listen** to receive each incoming transmission before its response options appear.
