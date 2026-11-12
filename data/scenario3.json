@@ -18,7 +18,11 @@
     "bandwidth": "WIDE",
     "ritHz": 0,
     "reverse": false,
-    "dmr": { "colorCode": 1, "talkgroup": 9, "timeSlot": 1 },
+    "dmr": {
+      "colorCode": 1,
+      "talkgroup": 9,
+      "timeSlot": 1
+    },
     "antenna": "rubber-duck",
     "antennaOrientation": "VERTICAL",
     "antennaDirection": 0,
@@ -44,23 +48,79 @@
         "mode": "FM"
       },
       "conversation": {
-        "start": "assignment",
+        "start": "listen-first",
         "nodes": {
           "assignment": {
-            "text": "Mara answers. “Yesterday you found me across the ridge. Now we need to bring the old county relay station back into service. It could give the valley a reliable link again. But the battery bank, mains supply, coax, and tower have all been sitting out here. We are not switching anything on or climbing anything until it has been inspected.”",
+            "text": "K7DBN, K7MVR. Good to hear you again. Yesterday you found me across the ridge. Now we need to bring the old county relay station back into service. It could give the valley a reliable link again. But the battery bank, mains supply, coax, and tower have all been sitting out here. We are not switching anything on or climbing anything until it has been inspected.",
             "responses": [
               {
-                "text": "Ask why there is a separate briefing before the work begins.",
+                "text": "K7MVR, K7DBN. Why is there a separate briefing before the work begins?",
                 "next": "why-rules"
               }
             ]
           },
           "why-rules": {
-            "text": "“Two reasons. First, electricity and antennas can injure you even when the equipment looks harmless. Second, radios are a shared resource. The old FCC is gone, but we kept its Amateur Radio Service rules—Part 97—as our network charter. Not because someone is waiting to issue fines, but because the rules let strangers share the same air without turning every channel into a shouting match. Elias will brief you on power safety. Contact him on 147.500 MHz FM.”",
+            "text": "“Two reasons. First, electricity and antennas can injure you even when the equipment looks harmless. Second, radios are a shared resource. The old FCC is gone, but we kept its Amateur Radio Service rules—Part 97—as our network charter. Not because someone is waiting to issue fines, but because the rules let strangers share the same air without turning every channel into a shouting match. Elias will brief you on power safety. Contact him on 147.500 MHz FM; listen first, then call him when the frequency is clear.”",
             "responses": [
               {
-                "text": "Tune to 147.500 MHz FM and contact Elias.",
+                "text": "K7MVR, K7DBN. Copy. I will listen on 147.500 MHz and, when clear, call Elias by callsign.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 147.460 MHz FM. You hear Mara calling and then pausing. Listen to the full call before answering; do not talk over her.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "Mara finishes her call and the channel is clear. Answer her directly, giving her callsign first and your own second.",
+            "responses": [
+              {
+                "text": "K7MVR, K7DBN.",
+                "next": "assignment",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Mara, it’s me. Are you there?",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "A first name alone does not identify an amateur station. Use K7MVR followed by your own callsign.",
+            "responses": [
+              {
+                "text": "K7MVR, K7DBN.",
+                "next": "assignment",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
@@ -75,13 +135,13 @@
         "mode": "FM"
       },
       "conversation": {
-        "start": "battery-bank",
+        "start": "listen-first",
         "nodes": {
           "battery-bank": {
-            "text": "Elias speaks from the station doorway. “Start with the battery bank. A 12-volt storage battery can deliver enormous current. If a metal tool bridges its terminals, it can become red-hot and cause severe burns, fire, or even an explosion. That is different from an ordinary electric shock: current passing through your body can heat tissue, disrupt the electrical functions of cells, and cause involuntary muscle contractions. Never let your body become the path between points at different voltages. Don't improvise a short-circuit test.”",
+            "text": "K7DBN, K7ELN. Start with the battery bank. A 12-volt storage battery can deliver enormous current. If a metal tool bridges its terminals, it can become red-hot and cause severe burns, fire, or even an explosion. That is different from an ordinary electric shock: current passing through your body can heat tissue, disrupt the electrical functions of cells, and cause involuntary muscle contractions. Never let your body become the path between points at different voltages. Don’t improvise a short-circuit test.",
             "responses": [
               {
-                "text": "Ask what to look for in the station's wiring and fuses.",
+                "text": "Copy, K7ELN. What should I look for in the station’s wiring and fuses?",
                 "next": "fuses-and-wiring"
               }
             ]
@@ -90,7 +150,7 @@
             "text": "“A fuse is a safety link. It opens the circuit when excessive current flows. Use the specified rating—never replace a 5-amp fuse with a 20-amp fuse or bypass it. The larger fuse may let the wiring overheat and start a fire. Use wires, connectors, and other components rated for the voltage and current they must carry; parts are not interchangeable just because they fit. In a 120-volt AC cable, black is the hot conductor. A fuse or circuit breaker belongs in series with the hot conductor.”",
             "responses": [
               {
-                "text": "Ask whether switching the power supply off makes it safe to open.",
+                "text": "K7ELN, K7DBN. Does switching the power supply off make it safe to open?",
                 "next": "stored-charge"
               }
             ]
@@ -99,7 +159,7 @@
             "text": "“No. A power supply can contain filter capacitors that retain a dangerous charge after the switch is off. Don't open the supply or assume it is safe because it is unplugged. A trained person must verify that it is discharged. Use three-wire cords and plugs, and a common safety ground for AC-powered station equipment. Anyone measuring high voltage must use a meter and leads rated for that voltage.”",
             "responses": [
               {
-                "text": "Ask what must be checked before reconnecting the antenna feed line.",
+                "text": "Copy. What must be checked before reconnecting the antenna feed line?",
                 "next": "grounding-and-lightning"
               }
             ]
@@ -108,8 +168,64 @@
             "text": "“Grounding and lightning protection are part of the installation, not optional extras. External ground rods and earth connections must be bonded together. The coax lightning arrester belongs on a grounded panel near where the feed lines enter the building. Ground conductors should be short and direct, without sharp bends. Local electrical codes establish the grounding requirements. Don't invent a shortcut and call it a ground.”",
             "responses": [
               {
-                "text": "Leave the mains supply isolated and contact Ruth about the tower at 147.520 MHz.",
+                "text": "K7ELN, K7DBN. We will leave the mains supply isolated and contact Ruth on 147.520 MHz after listening.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 147.500 MHz FM. This is a new channel. Before transmitting, monitor it long enough to make sure no one is already using it; Elias is expected to be listening.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen on 147.500 MHz FM. The channel is clear, and Elias is monitoring from the station doorway. Now call him directly.",
+            "responses": [
+              {
+                "text": "K7ELN, K7DBN. Ready for the safety briefing.",
+                "next": "battery-bank",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Elias, talk to me.",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "Use the station callsign and your own. A first name alone is not station identification.",
+            "responses": [
+              {
+                "text": "K7ELN, K7DBN. Ready for the safety briefing.",
+                "next": "battery-bank",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
@@ -118,19 +234,19 @@
     },
     {
       "id": "ruth-tower-safety",
-      "name": "Ruth — The Antenna Tower",
+      "name": "Ruth (K7RTH) — The Antenna Tower",
       "match": {
         "frequency": 147.52,
         "mode": "FM"
       },
       "conversation": {
-        "start": "tower-inspection",
+        "start": "listen-first",
         "nodes": {
           "tower-inspection": {
-            "text": "Ruth is watching the tower from a safe distance. “We inspect this from the ground. Tower climbing is never a one-person job. It requires proper training, an approved climbing harness, appropriate tie-off at all times, and a helper or observer. Never climb alone. Look for overhead electrical wires. If the tower or antenna could fall and any part could come within 10 feet of power wires, the site is not safe. Never attach an antenna to a utility pole.”",
+            "text": "K7DBN, K7RTH. I’m watching the tower from a safe distance. We inspect this from the ground. Tower climbing is never a one-person job. It requires proper training, an approved climbing harness, appropriate tie-off at all times, and a helper or observer. Never climb alone. Look for overhead electrical wires. If the tower or antenna could fall and any part could come within 10 feet of power wires, the site is not safe. Never attach an antenna to a utility pole.",
             "responses": [
               {
-                "text": "Ask about the tower's mechanical supports and guy wires.",
+                "text": "K7RTH, K7DBN. What should we inspect on the tower’s mechanical supports and guy wires?",
                 "next": "supports-and-grounding"
               }
             ]
@@ -139,17 +255,73 @@
             "text": "“A crank-up tower must be retracted, or secured with its mechanical safety locks, before anyone climbs it. Safety wire through a guy-line turnbuckle prevents vibration from loosening it. Tower grounding must follow local electrical codes; the grounding system needs proper rods bonded to the tower and to one another. Lightning conductors should be short and direct, with no sharp bends. A tower is a structural system, not just a pole with an antenna on top.”",
             "responses": [
               {
-                "text": "Mark the tower as no-climb and wait for a trained crew to inspect it.",
+                "text": "K7RTH, K7DBN. Copy. Mark the tower no-climb and wait for a trained crew.",
                 "next": "stop-work"
               }
             ]
           },
           "stop-work": {
-            "text": "“Good. Sometimes the safest repair is to stop. We do not climb until the structure, power-line clearance, and grounding have been checked and a trained crew is present. Contact Nina on 147.540 MHz. She will explain a hazard you cannot see or smell: RF exposure.”",
+            "text": "“Good,” K7RTH replies. “Sometimes the safest repair is to stop. We do not climb until the structure, power-line clearance, and grounding have been checked and a trained crew is present. Contact Nina on 147.540 MHz. Listen first, then call her by callsign. She will explain a hazard you cannot see or smell: RF exposure.”",
             "responses": [
               {
-                "text": "Tune to 147.540 MHz FM and contact Nina.",
+                "text": "Listen on 147.540 MHz FM; when the channel is clear, call Nina, K7NNA.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 147.520 MHz FM. Before transmitting on this new channel, listen for other traffic and give any ongoing contact time to finish. Ruth is monitoring nearby.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen on 147.520 MHz FM. The channel is clear, and Ruth is monitoring from a safe distance. Now call her directly.",
+            "responses": [
+              {
+                "text": "K7RTH, K7DBN. Are you monitoring?",
+                "next": "tower-inspection",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Ruth, can you hear me?",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "Listen first, then use the station callsign followed by your own. A first name alone is not station identification.",
+            "responses": [
+              {
+                "text": "K7RTH, K7DBN. Are you monitoring?",
+                "next": "tower-inspection",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
@@ -158,16 +330,16 @@
     },
     {
       "id": "nina-rf-safety",
-      "name": "Nina — RF Exposure",
+      "name": "Nina (K7NNA) — RF Exposure",
       "match": {
         "frequency": 147.54,
         "mode": "FM"
       },
       "conversation": {
-        "start": "radiation-type",
+        "start": "listen-first",
         "nodes": {
           "radiation-type": {
-            "text": "Nina answers from the control room. “Radio signals are non-ionizing radiation. They do not have enough energy to cause chemical changes in cells or damage DNA in the way ionizing radiation can. But non-ionizing does not mean harmless at every power level. Strong RF can heat body tissue. Touching an antenna while it is transmitting can cause an RF burn.”",
+            "text": "K7DBN, K7NNA. Radio signals are non-ionizing radiation. They do not have enough energy to cause chemical changes in cells or damage DNA in the way ionizing radiation can. But non-ionizing does not mean harmless at every power level. Strong RF can heat body tissue. Touching an antenna while it is transmitting can cause an RF burn.",
             "responses": [
               {
                 "text": "Ask what determines how much RF exposure a person receives.",
@@ -179,7 +351,7 @@
             "text": "“Exposure depends on frequency, power, distance from the antenna, and the antenna's radiation pattern. Duty cycle is the percentage of time the transmitter is actually transmitting. A lower duty cycle reduces average exposure. Under the exposure-averaging rules, changing from a 100-percent to a 50-percent duty cycle doubles the allowable average power density. That is something to calculate, not an excuse to stand next to an antenna.”",
             "responses": [
               {
-                "text": "Ask how a station checks and maintains RF safety compliance.",
+                "text": "K7NNA, K7DBN. How does a station check and maintain RF safety compliance?",
                 "next": "compliance"
               }
             ]
@@ -188,8 +360,64 @@
             "text": "“Exposure limits vary with frequency because the human body absorbs RF energy differently at different frequencies. Compliance can be evaluated by calculation, computer modeling, or measurement with calibrated equipment. If the transmitter or antenna system changes, evaluate exposure again. Moving an antenna farther from people can reduce exposure. The station licensee is responsible for ensuring that no one is exposed above the FCC limits. Until this site has been evaluated, keep people away from the antenna whenever it transmits.”",
             "responses": [
               {
-                "text": "Keep the antenna area clear and return to Valley Net Control on 147.150 MHz.",
+                "text": "K7NNA, K7DBN. We will keep the antenna area clear and return to Valley Net Control.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 147.540 MHz FM. This is a new channel. Before transmitting, monitor it long enough to make sure no one else is using it; Nina is monitoring from the control room.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen on 147.540 MHz FM. No one else is using the channel; Nina is monitoring from the control room. Now make a short call.",
+            "responses": [
+              {
+                "text": "K7NNA, K7DBN. I’m ready for the RF safety briefing.",
+                "next": "radiation-type",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Transmit immediately without identifying either station.",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "A shared frequency may already be in use. Listen first, then make a short call with both callsigns.",
+            "responses": [
+              {
+                "text": "K7NNA, K7DBN. I’m ready for the RF safety briefing.",
+                "next": "radiation-type",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
@@ -198,7 +426,7 @@
     },
     {
       "id": "valley-net-charter",
-      "name": "Valley Net Control — The Network Charter",
+      "name": "Valley Net Control (K7NCS) — The Network Charter",
       "match": {
         "frequency": 147.15,
         "mode": "FM",
@@ -206,31 +434,31 @@
         "ctcssTx": "100.0"
       },
       "conversation": {
-        "start": "purpose-and-authority",
+        "start": "listen-first",
         "nodes": {
           "purpose-and-authority": {
-            "text": "“Valley Net Control, K7NCS. Good to hear you again. Now the rules. In the United States, the FCC regulates the Amateur Radio Service; the ARRL is not the regulator. The service exists for self-training, advancing technical and communication skills, intercommunication, technical investigation, and public service. We kept the old FCC Part 97 rules as our charter. The spectrum belongs to no single operator. We share it, so we need common expectations.”",
+            "text": "K7DBN, this is K7NCS. Good to hear you again. Now the rules. Before the collapse, the FCC regulated the Amateur Radio Service; the ARRL was not the regulator. The service existed for self-training, advancing technical and communication skills, intercommunication, technical investigation, and public service. We kept the old FCC Part 97 rules as our charter. The spectrum belongs to no single operator. We share it, so we need common expectations.",
             "responses": [
               {
-                "text": "Ask how the rules determine where and how each station may transmit.",
+                "text": "K7NCS, K7DBN. How do the rules determine where and how each station may transmit?",
                 "next": "spectrum-and-band-plans"
               }
             ]
           },
           "spectrum-and-band-plans": {
-            "text": "“Your license class determines which frequencies and modes you may use. Privileges vary by band segment and emission type; being authorized on a band does not mean every mode is allowed everywhere. Technician phone privileges on HF are limited to the 10-meter segment from 28.300 to 28.500 MHz. Some allocations are secondary, which means amateurs must avoid interfering with primary users. Don't transmit exactly at a band or sub-band edge: display error, transmitter drift, and modulation sidebands can put energy outside the authorized segment.\n\n“A band plan is a voluntary guide for dividing a band among modes and activities. Local volunteer frequency coordinators, selected by area amateurs, recommend channels for repeaters and auxiliary stations; they do not replace the FCC or create legal frequency privileges. Propagation beacons are another special use: on 10 meters, automatically controlled amateur propagation beacons operate from 28.200 to 28.300 MHz. Technicians may also contact the International Space Station on VHF. The old rules set power ceilings—generally 200 watts PEP in Technician HF segments and 1,500 watts PEP above 30 MHz, subject to specific restrictions. Those are ceilings, not targets. Willful or malicious interference is prohibited; if two stations interfere, coordinate and move rather than trying to overpower one another.”",
+            "text": "“Your license class determined which frequencies and modes you could use. Privileges varied by band segment and emission type; being authorized on a band did not mean every mode was allowed everywhere. Technician phone privileges on HF were limited to the 10-meter segment from 28.300 to 28.500 MHz. Some allocations were secondary, which meant amateurs had to avoid interfering with primary users. Do not transmit exactly at a band or sub-band edge: display error, transmitter drift, and modulation sidebands can put energy outside the authorized segment.\n\n“A band plan was a voluntary guide for dividing a band among modes and activities. Local volunteer frequency coordinators, selected by area amateurs, recommended channels for repeaters and auxiliary stations; they did not replace the FCC or create legal frequency privileges. Propagation beacons were another special use: on 10 meters, automatically controlled amateur propagation beacons operated from 28.200 to 28.300 MHz. Technicians could also contact the International Space Station on VHF. The old rules set power ceilings—generally 200 watts PEP in Technician HF segments and 1,500 watts PEP above 30 MHz, subject to specific restrictions. Those were ceilings, not targets. Willful or malicious interference was prohibited; if two stations interfered, they were expected to coordinate and move rather than overpower one another.”",
             "responses": [
               {
-                "text": "Ask what the license itself grants and how it stays valid.",
+                "text": "Copy, K7NCS. What does the license itself grant, and when does it become valid?",
                 "next": "licenses-and-callsigns"
               }
             ]
           },
           "licenses-and-callsigns": {
-            "text": "“The FCC currently issues Technician, General, and Amateur Extra licenses. A license grant becomes effective when it appears in the FCC Universal Licensing System database; a test-completion certificate by itself is not permission to transmit. The normal license term is ten years. Renewal may be requested up to 90 days before expiration. There is a two-year grace period after expiration, but you may not transmit until the license is renewed. Keep your mailing address and email current so the FCC can reach you. Call signs are normally assigned sequentially, although any licensed amateur may request an available vanity call sign. International communication must be incidental to Amateur Radio Service purposes or personal in character; do not contact a country whose administration has formally objected to such communications.”",
+            "text": "“Before the collapse, the FCC issued Technician, General, and Amateur Extra licenses. A license grant became effective when it appeared in the FCC Universal Licensing System database; a test-completion certificate by itself was not permission to transmit. The normal license term was ten years. Renewal could be requested up to 90 days before expiration. There was a two-year grace period after expiration, but an operator could not transmit until the license was renewed. Licensees had to keep their mailing address and email current so the FCC could reach them. Call signs were normally assigned sequentially, although any licensed amateur could request an available vanity call sign. International communication had to be incidental to Amateur Radio Service purposes or personal in character; operators could not contact a country whose administration had formally objected to such communications.”",
             "responses": [
               {
-                "text": "Ask who is responsible for controlling a station.",
+                "text": "Copy. Who is responsible for controlling a station?",
                 "next": "control-operator"
               }
             ]
@@ -239,45 +467,196 @@
             "text": "“Every amateur station must have a control operator. The station licensee designates that operator, and the operator's license class determines the privileges used for the transmission. If the control operator is not the licensee, both share responsibility for proper operation. The control point is where the control-operator function is performed. Automatic control means the station can operate automatically under the rules—repeaters are an example. Remote control means an operator controls a station from another location, such as over the internet. Automatic does not mean uncontrolled.”",
             "responses": [
               {
-                "text": "Ask how stations identify themselves and handle messages for others.",
+                "text": "K7NCS, K7DBN. How do stations identify themselves and handle messages for others?",
                 "next": "identification-and-third-party"
               }
             ]
           },
           "identification-and-third-party": {
-            "text": "“Identify with your assigned call sign at least every ten minutes during a communication and at its end. Phone identification is in English, using a phone or CW emission. The phonetic alphabet is encouraged when speaking, especially when conditions are noisy. Tactical names such as ‘Valley Net’ are useful, but they do not replace the assigned call sign. Identify even when making test transmissions.\n\n“A third-party communication is a message passed from one control operator to another on behalf of someone else. That is normal in message handling, but international third-party traffic requires an agreement with the other country. If a repeater retransmits an improper transmission, responsibility remains with the originating station's control operator. A station and its records must be made available for FCC inspection upon request. A club station license requires at least four members.”",
+            "text": "“Identify with your assigned callsign at least every ten minutes during a communication and at its end. Phone identification was in English, using a phone or CW emission. The phonetic alphabet was encouraged when speaking, especially when conditions were noisy. Tactical names such as ‘Valley Net’ were useful, but they did not replace the assigned callsign. Identify even when making test transmissions.\n\n“A third-party communication was a message passed from one control operator to another on behalf of someone else. That was normal in message handling, but international third-party traffic required an agreement with the other country. If a repeater retransmitted an improper transmission, responsibility remained with the originating station’s control operator. A station and its records had to be made available for FCC inspection upon request. A club station license required at least four members.”",
             "responses": [
               {
-                "text": "Ask which kinds of transmissions the network rules prohibit.",
-                "next": "prohibited-transmissions"
+                "text": "K7NCS, K7DBN. Test me: does the net name replace my callsign?",
+                "next": "identification-check"
               }
             ]
           },
           "prohibited-transmissions": {
-            "text": "“Amateur frequencies are not for broadcasting to the general public, routine business, or messages encoded to obscure their meaning. Ordinary digital modes and procedural abbreviations are fine; encryption or secret codes intended to hide message content are generally prohibited, with a narrow exception for control commands to space stations or model craft. Obscene or indecent language is prohibited. Music is generally prohibited except when incidental to an authorized retransmission of manned-spacecraft communications. Operators generally may not be compensated for operating, with narrow exceptions such as communications that are part of classroom instruction at an educational institution. You may announce an occasional personal sale or trade of amateur equipment, but not run a regular sales business over the air.”",
+            "text": "“Amateur frequencies were not for broadcasting to the general public, routine business, or messages encoded to obscure their meaning. Ordinary digital modes and procedural abbreviations were fine; encryption or secret codes intended to hide message content were generally prohibited, with a narrow exception for control commands to space stations or model craft. Obscene or indecent language was prohibited. Music was generally prohibited except when incidental to an authorized retransmission of manned-spacecraft communications. Operators generally could not be compensated for operating, with narrow exceptions such as communications that were part of classroom instruction at an educational institution. An occasional personal sale or trade of amateur equipment could be announced, but a regular sales business could not be run over the air.”",
             "responses": [
               {
-                "text": "Ask whether emergencies change the rules.",
-                "next": "emergency-services"
+                "text": "K7NCS, K7DBN. What is the rule about concealing a message’s meaning?",
+                "next": "prohibited-check"
               }
             ]
           },
           "emergency-services": {
-            "text": "“An emergency does not erase every rule. Part 97 still applies; narrow exceptions allow operation outside normal privileges when necessary for the immediate safety of human life or protection of property. ARES is a volunteer service of licensed amateurs who register their qualifications and equipment for public-service communications. RACES is a separate civil-defense service under Part 97. A RACES control operator needs an amateur license and current enrollment certified by a civil-defense organization. ARES membership alone does not qualify someone to operate a RACES station.”",
+            "text": "“An emergency did not erase every rule. Part 97 still applied; narrow exceptions allowed operation outside normal privileges when necessary for the immediate safety of human life or protection of property. ARES, the Amateur Radio Emergency Service, was a civilian volunteer service of licensed amateurs organized for public-service communications. RACES, the Radio Amateur Civil Emergency Service, was a separate civil-defense service under Part 97. A RACES control operator needed an amateur license and current enrollment certified by a civil-defense organization. ARES membership alone did not qualify someone to operate a RACES station.”",
             "responses": [
               {
-                "text": "Report that the site remains isolated: power is off, the tower is no-climb, and RF evaluation is still required.",
-                "next": "acknowledgement"
+                "text": "K7NCS, K7DBN. What does the emergency exception actually allow?",
+                "next": "emergency-check"
               }
             ]
           },
           "acknowledgement": {
-            "text": "“Report received,” K7NCS replies. “Good work. The old rules are not a ritual. They are how we keep a shared channel usable and how we know who is responsible for a station. We will not activate the county site until the qualified crew completes its inspection. You now know the safety limits and the operating charter. Tomorrow, we put that knowledge to work at the station.”",
+            "text": "“Report received, K7DBN,” K7NCS replies. “Good work. You listened to the net, waited for an opening, identified yourself, and passed a concise report. The old rules are not a ritual. They are how we keep a shared channel usable and how we know who is responsible for a station. We will not activate the county site until the qualified crew completes its inspection. You now know the safety limits and the operating charter. Tomorrow, we put that knowledge to work at the station.”",
             "responses": [
               {
-                "text": "End the transmission and complete Chapter 3.",
+                "text": "K7NCS, K7DBN, clear. Complete Chapter 3.",
                 "next": null,
                 "chapterComplete": true
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You return to Valley Net Control on 147.150 MHz FM through the +0.600 MHz repeater with CTCSS transmit at 100.0 Hz. You hear an exchange already in progress. Listen; do not break in. Wait for Net Control to pause before checking in.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen while the active exchange finishes. K7NCS pauses and invites stations with traffic. Now check in with your callsign and the reason for your report.",
+            "responses": [
+              {
+                "text": "K7NCS, K7DBN, returning with the county-site safety report.",
+                "next": "purpose-and-authority",
+                "correct": true,
+                "feedback": "You waited for the net opening, identified yourself, and stated your purpose."
+              },
+              {
+                "text": "K7NCS! I need to speak now!",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "On a directed net, wait for Net Control to open the channel. Then identify yourself and state why you are checking in.",
+            "responses": [
+              {
+                "text": "K7NCS, K7DBN, returning with the county-site safety report.",
+                "next": "purpose-and-authority",
+                "correct": true,
+                "feedback": "You waited for the net opening, identified yourself, and stated your purpose."
+              }
+            ]
+          },
+          "identification-check": {
+            "text": "K7NCS asks: “A long net is using the tactical name Valley Net. What must you do to identify your station?”",
+            "responses": [
+              {
+                "text": "Transmit my assigned callsign at least every ten minutes and at the end; “Valley Net” does not replace it.",
+                "next": "prohibited-transmissions",
+                "correct": true,
+                "feedback": "Correct. Tactical names help organize a net, but each station still identifies with its assigned callsign."
+              },
+              {
+                "text": "Use only “Valley Net.” Everyone on the net knows who I am.",
+                "next": "identification-correction",
+                "correct": false,
+                "feedback": "A tactical name does not replace the station callsign."
+              }
+            ]
+          },
+          "identification-correction": {
+            "text": "K7NCS: “No. Other operators and anyone monitoring the frequency must be able to identify the station transmitting. Use your assigned callsign at least every ten minutes and at the end.”",
+            "responses": [
+              {
+                "text": "K7NCS, K7DBN. Understood; my callsign identifies my station.",
+                "next": "prohibited-transmissions",
+                "correct": true,
+                "feedback": "You corrected the distinction between a tactical name and a legal station identification."
+              }
+            ]
+          },
+          "prohibited-check": {
+            "text": "K7NCS asks: “The Watchers may be listening. Can you hide the meaning of an ordinary amateur message with encryption or a secret code?”",
+            "responses": [
+              {
+                "text": "No. Use an allowed mode and plain, understandable message content; do not encode it to conceal the meaning.",
+                "next": "emergency-services",
+                "correct": true,
+                "feedback": "Correct. Ordinary digital modes are permitted, but messages generally may not be encoded to obscure their meaning."
+              },
+              {
+                "text": "Yes. Encrypt the message so unauthorized listeners cannot understand it.",
+                "next": "prohibited-correction",
+                "correct": false,
+                "feedback": "The desire for privacy does not create a general encryption exception in amateur radio."
+              }
+            ]
+          },
+          "prohibited-correction": {
+            "text": "K7NCS: “That is exactly the temptation the rule is meant to prevent. Amateur transmissions are generally open. Do not use encryption or secret codes to hide message content.”",
+            "responses": [
+              {
+                "text": "K7NCS, K7DBN. Understood; keep the message clear and use an authorized mode.",
+                "next": "emergency-services",
+                "correct": true,
+                "feedback": "You retained the rule: no concealed message content."
+              }
+            ]
+          },
+          "emergency-check": {
+            "text": "K7NCS asks: “Suppose lives are at risk. Does that mean every operating rule disappears?”",
+            "responses": [
+              {
+                "text": "No. The exception is narrow: depart from normal privileges only when immediately necessary to protect human life or property.",
+                "next": "final-report",
+                "correct": true,
+                "feedback": "Correct. An emergency can justify only the limited action needed for immediate safety."
+              },
+              {
+                "text": "Yes. In an emergency, any frequency, power, or transmission is automatically allowed.",
+                "next": "emergency-correction",
+                "correct": false,
+                "feedback": "An emergency is not a blanket suspension of every rule."
+              }
+            ]
+          },
+          "emergency-correction": {
+            "text": "K7NCS: “No. The exception is narrow and tied to immediate necessity. ARES and RACES provide organized public-service structures; they are not permission to ignore every rule.”",
+            "responses": [
+              {
+                "text": "K7NCS, K7DBN. Understood; the emergency exception is limited.",
+                "next": "final-report",
+                "correct": true,
+                "feedback": "You corrected the misconception: an emergency does not cancel every operating rule."
+              }
+            ]
+          },
+          "final-report": {
+            "text": "K7NCS: “Good. Now pass the site status briefly and clearly so the net knows what is safe and what is not.”",
+            "responses": [
+              {
+                "text": "K7NCS, K7DBN. The county site remains isolated. Power is off, the tower is no-climb, and RF evaluation is still required.",
+                "next": "acknowledgement",
+                "correct": true,
+                "feedback": "You gave Net Control a concise, factual status report."
               }
             ]
           }

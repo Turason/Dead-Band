@@ -18,7 +18,11 @@
     "bandwidth": "WIDE",
     "ritHz": 0,
     "reverse": false,
-    "dmr": { "colorCode": 1, "talkgroup": 9, "timeSlot": 1 },
+    "dmr": {
+      "colorCode": 1,
+      "talkgroup": 9,
+      "timeSlot": 1
+    },
     "antenna": "rubber-duck",
     "antennaOrientation": "VERTICAL",
     "antennaDirection": 0,
@@ -39,12 +43,15 @@
     {
       "id": "mara-wavelength",
       "name": "Mara — The Wavelength Note",
-      "match": { "frequency": 146.50, "mode": "FM" },
+      "match": {
+        "frequency": 146.5,
+        "mode": "FM"
+      },
       "conversation": {
         "start": "wren-note",
         "nodes": {
           "wren-note": {
-            "text": "A clipped recording from Mara plays through the speaker. “WREN left this note: lambda equals 2.04 meters. It is a clue, but not a channel assignment. Use the relationship between wavelength and frequency. What frequency does it suggest?”",
+            "text": "A clipped recording from Mara plays through the speaker. It is a stored message, not a live station calling you. “WREN left this note: lambda equals 2.04 meters. It is a clue, but not a channel assignment. Use the relationship between wavelength and frequency. What frequency does it suggest?”",
             "responses": [
               {
                 "text": "Calculate 300 divided by 2.04: approximately 147 MHz, in the 2-meter band.",
@@ -53,7 +60,7 @@
             ]
           },
           "wave-basics": {
-            "text": "Mara continues: “Right. The approximate formula is wavelength in meters equals 300 divided by frequency in MHz. Frequency and wavelength describe the same wave: as frequency increases, wavelength gets shorter. The 2.04-meter note points to about 147 MHz, but it does not tell you which channel to use. We are using 146.500 MHz. Radio waves travel through free space at about 300 million meters per second, the speed of light. All radio frequencies travel at that same speed. A radio wave has an electric field and a magnetic field at right angles to each other. Its polarization is defined by the orientation of the electric field. The bands are named by frequency and approximate wavelength: HF is 3–30 MHz, VHF is 30–300 MHz, and UHF is 300–3000 MHz. I have to cross the ridge. Find Elias on 146.480 MHz. He may know which way I went.”",
+            "text": "Mara continues: “Right. The approximate formula is wavelength in meters equals 300 divided by frequency in MHz. Frequency and wavelength describe the same wave: as frequency increases, wavelength gets shorter. The 2.04-meter note points to about 147 MHz, but it does not tell you which channel to use. We are using 146.500 MHz. Radio waves travel through free space at about 300 million meters per second, the speed of light. All radio frequencies travel at that same speed. A radio wave has an electric field and a magnetic field at right angles to each other. Its polarization is defined by the orientation of the electric field. The bands are named by frequency and approximate wavelength: HF is 3–30 MHz, VHF is 30–300 MHz, and UHF is 300–3000 MHz. I have to cross the ridge. When you reach 146.480 MHz, listen first; if the channel is clear, call Elias, K7ELN. He may know which way I went.”",
             "responses": [
               {
                 "text": "Tune to 146.480 MHz FM and contact Elias.",
@@ -67,12 +74,15 @@
     {
       "id": "elias-line-of-sight",
       "name": "Elias — The Ridge",
-      "match": { "frequency": 146.48, "mode": "FM" },
+      "match": {
+        "frequency": 146.48,
+        "mode": "FM"
+      },
       "conversation": {
-        "start": "blocked-path",
+        "start": "listen-first",
         "nodes": {
           "blocked-path": {
-            "text": "Elias answers from the lower slope. “Mara crossed the ridge. VHF and UHF signals normally travel by line of sight, so a mountain can block the direct path. The radio horizon is a little farther away than the visual horizon because the atmosphere refracts radio waves slightly. UHF simplex signals are rarely heard beyond their radio horizon because UHF is not usually propagated by the ionosphere.”",
+            "text": "K7DBN, K7ELN. I hear you from the lower slope. Mara crossed the ridge. VHF and UHF signals normally travel by line of sight, so a mountain can block the direct path. The radio horizon is a little farther away than the visual horizon because the atmosphere refracts radio waves slightly. UHF simplex signals are rarely heard beyond their radio horizon because UHF is not usually propagated by the ionosphere.",
             "responses": [
               {
                 "text": "Climb toward the ridge and look for another path to the station.",
@@ -81,11 +91,67 @@
             ]
           },
           "terrain": {
-            "text": "“A blocked path is not always the end,” Elias says. “A signal may reach a station by reflecting from a surface. A sharp ridge can also diffract some of the signal around its edge; that is knife-edge diffraction. Try a different position instead of simply turning up the power. Remember the environment too. Vegetation absorbs UHF and microwave signals, which can make weak signals difficult to receive. Precipitation can reduce range at microwave frequencies, but rain and fog have little effect on 6-meter and 10-meter signals. Try the quarry station on 446.000 MHz. It is on UHF, and the trees between you may matter.”",
+            "text": "K7ELN continues: “A blocked path is not always the end. A signal may reach a station by reflecting from a surface. A sharp ridge can also diffract some of the signal around its edge; that is knife-edge diffraction. Try a different position instead of simply turning up the power. Remember the environment too. Vegetation absorbs UHF and microwave signals, which can make weak signals difficult to receive. Precipitation can reduce range at microwave frequencies, but rain and fog have little effect on 6-meter and 10-meter signals. Try the quarry station on 446.000 MHz. It is on UHF, and the trees between you may matter.”",
             "responses": [
               {
-                "text": "Move to a clearer position and tune to 446.000 MHz FM.",
+                "text": "K7ELN, K7DBN. Copy. Move to a clearer position, tune to 446.000 MHz FM, and listen before calling.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 146.480 MHz FM. This is a new channel. Before transmitting, monitor it long enough to tell whether another station is already using the frequency.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen. The 146.480 MHz FM channel is quiet, and Elias is monitoring nearby. Now call the station by its callsign.",
+            "responses": [
+              {
+                "text": "K7ELN, K7DBN. Do you copy?",
+                "next": "blocked-path",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Elias? Are you there?",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "A name alone is not a proper station identification. Use Elias’s callsign first, followed by your own.",
+            "responses": [
+              {
+                "text": "K7ELN, K7DBN. Do you copy?",
+                "next": "blocked-path",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
@@ -94,17 +160,76 @@
     },
     {
       "id": "quarry-uhf",
-      "name": "Quarry Station — A Clearer Path",
-      "match": { "frequency": 446.000, "mode": "FM" },
+      "name": "Quarry Station (W7QRY) — A Clearer Path",
+      "match": {
+        "frequency": 446.0,
+        "mode": "FM"
+      },
       "conversation": {
-        "start": "contact",
+        "start": "listen-first",
         "nodes": {
           "contact": {
-            "text": "A station near the quarry answers. The signal becomes much stronger when you move out of the trees. “That is UHF absorption by vegetation,” the operator says. “For a distant repeater blocked by buildings or a ridge, a directional antenna may still work if you find a path that reflects the signal toward it, or a route that uses diffraction around a sharp edge. The direct path is not the only path.”",
+            "text": "K7DBN, this is W7QRY. I hear you. Your signal becomes much stronger when you move out of the trees. That is UHF absorption by vegetation. For a distant repeater blocked by buildings or a ridge, a directional antenna may still work if you find a path that reflects the signal toward it, or a route that uses diffraction around a sharp edge. The direct path is not the only path.",
             "responses": [
               {
-                "text": "Record the lesson and move to the 146.460 MHz test channel.",
+                "text": "W7QRY, K7DBN. Copy the lesson; move to 146.460 MHz FM and listen before replying to Elias.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You move out of the trees and tune to 446.000 MHz FM. You hear W7QRY give a brief monitoring call, then pause. Listen long enough to confirm the frequency is clear before answering.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen on 446.000 MHz FM. The channel is clear, and the quarry operator is monitoring. Now make a short direct call.",
+            "responses": [
+              {
+                "text": "W7QRY, K7DBN.",
+                "next": "contact",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Quarry station? Anybody out there?",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "You have the station’s callsign. Use W7QRY first, followed by K7DBN, instead of a general shout.",
+            "responses": [
+              {
+                "text": "W7QRY, K7DBN.",
+                "next": "contact",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
@@ -114,12 +239,15 @@
     {
       "id": "multipath-fading",
       "name": "Elias — The Moving Signal",
-      "match": { "frequency": 146.46, "mode": "FM" },
+      "match": {
+        "frequency": 146.46,
+        "mode": "FM"
+      },
       "conversation": {
-        "start": "flutter",
+        "start": "listen-first",
         "nodes": {
           "flutter": {
-            "text": "Elias is moving along the road. His signal flutters rapidly, breaking up and returning like a picket fence. “Move your radio only a few feet,” he says. “Notice how the signal changes. The direct signal and signals reflected from nearby objects can arrive together. Sometimes they reinforce each other; sometimes they cancel. That is multipath propagation.”",
+            "text": "K7ELN is moving along the road. His signal flutters rapidly, breaking up and returning like a picket fence. “Move your radio only a few feet,” he says. “Notice how the signal changes. The direct signal and signals reflected from nearby objects can arrive together. Sometimes they reinforce each other; sometimes they cancel. That is multipath propagation.”",
             "responses": [
               {
                 "text": "Move a few feet and listen again.",
@@ -128,11 +256,39 @@
             ]
           },
           "effects": {
-            "text": "The signal becomes clearer in the new position. Elias continues: “Rapid flutter on a moving station is called picket fencing. Multipath can also increase error rates in data transmissions. Ionospheric signals can fade irregularly for a related reason: signals arriving by different paths combine randomly, sometimes reinforcing and sometimes weakening one another.”",
+            "text": "The signal becomes clearer in the new position. K7ELN continues: “Rapid flutter on a moving station is called picket fencing. Multipath can also increase error rates in data transmissions. Ionospheric signals can fade irregularly for a related reason: signals arriving by different paths combine randomly, sometimes reinforcing and sometimes weakening one another.”",
             "responses": [
               {
-                "text": "Ask the next station about antenna orientation.",
+                "text": "K7ELN, K7DBN. Copy. I have moved a few feet and the signal is clearer. I will switch to 144.200 MHz USB, listen first, and call the ridge station after a pause.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 146.460 MHz FM and hear Elias already speaking. The signal is fluttering. Do not break into his transmission; listen until he pauses.",
+            "responses": [
+              {
+                "text": "Wait and listen to Elias’s full transmission before responding.",
+                "next": "flutter",
+                "correct": true,
+                "feedback": "You gave the other operator the channel and listened to the complete explanation."
+              },
+              {
+                "text": "Transmit over Elias to ask him to repeat himself.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "Listen first. A clear channel is not something to assume."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You would only add interference by talking over Elias. Let him finish the explanation; you can respond during the pause.",
+            "responses": [
+              {
+                "text": "Release PTT and listen to the rest of Elias’s transmission.",
+                "next": "flutter",
+                "correct": true,
+                "feedback": "You stopped before doubling with the other station."
               }
             ]
           }
@@ -141,17 +297,76 @@
     },
     {
       "id": "polarization-ssb",
-      "name": "High Ridge Station — Antenna Orientation",
-      "match": { "frequency": 144.200, "mode": "USB" },
+      "name": "High Ridge Station (W7HRS) — Antenna Orientation",
+      "match": {
+        "frequency": 144.2,
+        "mode": "USB"
+      },
       "conversation": {
-        "start": "orientation",
+        "start": "listen-first",
         "nodes": {
           "orientation": {
-            "text": "A clear single-sideband voice answers from a distant ridge. “For long-distance CW and SSB contacts on VHF and UHF, horizontal polarization is normally used. If one station uses a vertical antenna and the other uses a horizontal antenna on a line-of-sight path, the cross-polarization reduces received signal strength. Polarization is the orientation of the wave's electric field. But an ionospheric signal is elliptically polarized, so either a vertical or horizontal antenna may be used for transmission or reception after the signal has traveled through the ionosphere.”",
+            "text": "K7DBN, this is W7HRS. For long-distance CW and SSB contacts on VHF and UHF, horizontal polarization is normally used. If one station uses a vertical antenna and the other uses a horizontal antenna on a line-of-sight path, cross-polarization reduces received signal strength. Polarization is the orientation of the wave’s electric field. But an ionospheric signal is elliptically polarized, so either a vertical or horizontal antenna may be used for transmission or reception after the signal has traveled through the ionosphere.",
             "responses": [
               {
-                "text": "Use horizontal polarization for this VHF SSB contact, and remember the ionospheric exception.",
+                "text": "W7HRS, K7DBN. Copy: use horizontal polarization for this VHF SSB contact, and remember the ionospheric exception.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 144.200 MHz USB, the 2-meter SSB calling frequency. You hear W7HRS calling CQ. Listen through the complete call and wait for a pause before answering.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You would double with W7HRS if you transmitted now. Let the CQ finish, copy the callsign, and answer only after the station pauses.",
+            "responses": [
+              {
+                "text": "Release PTT and listen until W7HRS finishes the CQ.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You let the calling station finish before answering."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "W7HRS finishes the CQ and pauses. You have the station’s callsign. Answer with that callsign first, followed by your own.",
+            "responses": [
+              {
+                "text": "W7HRS, K7DBN.",
+                "next": "orientation",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Start talking without identifying the station you want.",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "Make a direct call to the station you want and identify your own station. Do not start an unidentified exchange.",
+            "responses": [
+              {
+                "text": "W7HRS, K7DBN.",
+                "next": "orientation",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
@@ -160,17 +375,48 @@
     },
     {
       "id": "sporadic-e",
-      "name": "Six-Meter Station — An Unexpected Opening",
-      "match": { "frequency": 52.525, "mode": "FM" },
+      "name": "Six-Meter Station (W7SIX) — An Unexpected Opening",
+      "match": {
+        "frequency": 52.525,
+        "mode": "FM"
+      },
       "conversation": {
-        "start": "opening",
+        "start": "listen-first",
         "nodes": {
           "opening": {
-            "text": "A surprisingly strong signal arrives from far beyond the normal radio horizon. The operator sounds as surprised as you are. “We have an opening on six meters. This is sporadic E propagation. It can produce occasional strong signals from beyond the radio horizon on the 10-meter, 6-meter, and 2-meter bands.”",
+            "text": "W7SIX finishes the call and says, “We have an opening on six meters. This is sporadic E propagation. It can produce occasional strong signals from beyond the radio horizon on the 10-meter, 6-meter, and 2-meter bands.” The operator sounds as surprised as you are.",
             "responses": [
               {
                 "text": "Recognize the unusual long-distance VHF signal as sporadic E.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 52.525 MHz FM and hear W7SIX calling from far beyond the normal radio horizon. The signal is unusually strong. Listen long enough to copy the callsign and wait for a pause before deciding whether to answer.",
+            "responses": [
+              {
+                "text": "Listen to the call and identify the propagation before transmitting.",
+                "next": "opening",
+                "correct": true,
+                "feedback": "You recognized that listening comes before joining an existing contact."
+              },
+              {
+                "text": "Break in immediately over the station because the signal is unusually strong.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "Listen first. A clear channel is not something to assume."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "A strong opening does not give you permission to interrupt. Listen to the full call, copy the station’s callsign, and wait for a pause before replying.",
+            "responses": [
+              {
+                "text": "Release PTT and listen through the end of the call.",
+                "next": "opening",
+                "correct": true,
+                "feedback": "You let the station finish before deciding whether to answer."
               }
             ]
           }
@@ -179,17 +425,48 @@
     },
     {
       "id": "tropospheric-ducting",
-      "name": "Valley Station — The Temperature Inversion",
-      "match": { "frequency": 147.480, "mode": "FM" },
+      "name": "Valley Station (W7VLY) — The Temperature Inversion",
+      "match": {
+        "frequency": 147.48,
+        "mode": "FM"
+      },
       "conversation": {
-        "start": "inversion",
+        "start": "listen-first",
         "nodes": {
           "inversion": {
-            "text": "A distant station comes through clearly across the valley. “The cold air is trapped below a warmer layer this morning,” the operator explains. “That temperature inversion can create tropospheric ducting. The duct guides VHF and UHF signals beyond the normal horizon. Under suitable conditions, contacts around 300 miles can occur on a regular basis.”",
+            "text": "W7VLY comes through clearly across the valley. “The cold air is trapped below a warmer layer this morning,” the operator explains. “That temperature inversion can create tropospheric ducting. The duct guides VHF and UHF signals beyond the normal horizon. Under suitable conditions, contacts around 300 miles can occur.”",
             "responses": [
               {
                 "text": "Identify the temperature inversion as the cause of tropospheric ducting.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 147.480 MHz FM. A distant station is already transmitting clearly across the valley. Listen to the full transmission; do not talk over it.",
+            "responses": [
+              {
+                "text": "Wait for the station to finish and listen to the explanation.",
+                "next": "inversion",
+                "correct": true,
+                "feedback": "You let the station finish and heard the complete explanation."
+              },
+              {
+                "text": "Transmit immediately to ask how the signal is reaching you.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "Listen first. A clear channel is not something to assume."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "W7VLY is already using the frequency. Wait for the operator to finish; listening first prevents doubling and lets you hear the full report.",
+            "responses": [
+              {
+                "text": "Release PTT and listen to the rest of W7VLY’s transmission.",
+                "next": "inversion",
+                "correct": true,
+                "feedback": "You gave the other operator the channel and heard the complete explanation."
               }
             ]
           }
@@ -198,17 +475,48 @@
     },
     {
       "id": "meteor-scatter",
-      "name": "Six-Meter SSB — Brief Reflections",
-      "match": { "frequency": 50.125, "mode": "USB" },
+      "name": "Six-Meter SSB (W7MTR) — Brief Reflections",
+      "match": {
+        "frequency": 50.125,
+        "mode": "USB"
+      },
       "conversation": {
-        "start": "bursts",
+        "start": "listen-first",
         "nodes": {
           "bursts": {
-            "text": "A signal appears in a short burst, then vanishes. A distant operator explains: “Meteor scatter uses the ionized trails left by meteors to reflect radio signals for brief periods. The 6-meter band is best suited for meteor-scatter communication. You may only have a short opening to exchange information.”",
+            "text": "A signal appears in a short burst, then vanishes. W7MTR identifies the contact in the burst. A distant operator explains: “Meteor scatter uses the ionized trails left by meteors to reflect radio signals for brief periods. The 6-meter band is best suited for meteor-scatter communication. You may only have a short opening to exchange information.”",
             "responses": [
               {
                 "text": "Wait for another burst and copy the brief message.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 50.125 MHz USB. A signal appears in a very short burst. Do not transmit over it; listen and copy what you can before it disappears.",
+            "responses": [
+              {
+                "text": "Listen to the entire burst and wait for another opening if you need more information.",
+                "next": "bursts",
+                "correct": true,
+                "feedback": "You listened during the brief opening and saved your transmission for a usable interval."
+              },
+              {
+                "text": "Start transmitting over the burst so the distant station knows you are there.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "Listen first. A clear channel is not something to assume."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "A meteor-scatter opening may last only seconds. Transmitting over the burst can waste your only chance to copy it; wait for another usable burst.",
+            "responses": [
+              {
+                "text": "Release PTT and wait for the next burst so you can copy it.",
+                "next": "bursts",
+                "correct": true,
+                "feedback": "You saved your transmission for a usable opening."
               }
             ]
           }
@@ -217,17 +525,48 @@
     },
     {
       "id": "auroral-backscatter",
-      "name": "Northern Station — The Raspy Signal",
-      "match": { "frequency": 50.150, "mode": "USB" },
+      "name": "Northern Station (W7NOR) — The Raspy Signal",
+      "match": {
+        "frequency": 50.15,
+        "mode": "USB"
+      },
       "conversation": {
-        "start": "rasp",
+        "start": "listen-first",
         "nodes": {
           "rasp": {
-            "text": "The voice is distorted, rough, and raspy. It is difficult to understand, but the operator confirms the contact. “That sound is characteristic of VHF auroral backscatter. The signal is being scattered by the aurora, so it does not sound like an ordinary clear line-of-sight contact.”",
+            "text": "W7NOR’s voice is distorted, rough, and raspy. It is difficult to understand, but the operator identifies the signal as VHF auroral backscatter. “The signal is being scattered by the aurora, so it does not sound like an ordinary clear line-of-sight contact.”",
             "responses": [
               {
                 "text": "Recognize the raspy VHF signal as auroral backscatter.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 50.150 MHz USB and hear a rough, distorted signal. Listen long enough to recognize it; do not interrupt just because it is difficult to copy.",
+            "responses": [
+              {
+                "text": "Keep listening and identify the characteristic sound.",
+                "next": "rasp",
+                "correct": true,
+                "feedback": "You listened to the signal before deciding how to respond."
+              },
+              {
+                "text": "Transmit over the weak signal and demand a repeat.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "Listen first. A clear channel is not something to assume."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "A difficult signal is not a reason to interrupt. Listen until the station pauses; if you still cannot copy it, make a brief identified request for a repeat.",
+            "responses": [
+              {
+                "text": "Release PTT and listen until W7NOR pauses.",
+                "next": "rasp",
+                "correct": true,
+                "feedback": "You waited for a pause instead of talking over the weak signal."
               }
             ]
           }
@@ -236,17 +575,76 @@
     },
     {
       "id": "hf-f-region",
-      "name": "Long-Haul Station — The F Region",
-      "match": { "frequency": 28.400, "mode": "USB" },
+      "name": "Long-Haul Station (W7LNG) — The F Region",
+      "match": {
+        "frequency": 28.4,
+        "mode": "USB"
+      },
       "conversation": {
-        "start": "skywave",
+        "start": "listen-first",
         "nodes": {
           "skywave": {
-            "text": "A station far away answers with a strong, steady signal. “This is the 10-meter band, part of HF. Long-distance ionospheric propagation is much more common on HF than on VHF and higher frequencies. The ionosphere, especially the F region, can refract or return HF radio waves toward Earth. It is often described as reflection or skywave propagation. For long-distance 10-meter propagation via the F region, the best time is from dawn to shortly after sunset when sunspot activity is high. Near the peak of the sunspot cycle, both 6-meter and 10-meter signals may support long-distance F-region contacts. The conditions are favorable this morning.”",
+            "text": "K7DBN, W7LNG. I hear you. This is the 10-meter band, part of HF. Long-distance ionospheric propagation is much more common on HF than on VHF and higher frequencies. The ionosphere, especially the F region, can refract or return HF radio waves toward Earth. It is often described as reflection or skywave propagation. For long-distance 10-meter propagation via the F region, the best time is from dawn to shortly after sunset when sunspot activity is high. Near the peak of the sunspot cycle, both 6-meter and 10-meter signals may support long-distance F-region contacts. The conditions are favorable this morning.",
             "responses": [
               {
-                "text": "Use the 10-meter HF band during daylight and try Mara on 28.420 MHz USB.",
+                "text": "W7LNG, K7DBN. Copy. Try Mara on 28.420 MHz USB; listen first, then call her directly.",
                 "next": null
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 28.400 MHz USB. You hear W7LNG calling CQ. Listen through the complete call and wait for a pause before answering.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen through W7LNG’s complete CQ call. The station pauses and is waiting for a reply. Now answer with both callsigns.",
+            "responses": [
+              {
+                "text": "W7LNG, K7DBN.",
+                "next": "skywave",
+                "correct": true,
+                "feedback": "You listened to the full CQ and answered during the pause with both callsigns."
+              },
+              {
+                "text": "Transmit before the CQ has finished.",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "Wait until the calling station has finished, then answer with its callsign followed by your own.",
+            "responses": [
+              {
+                "text": "W7LNG, K7DBN.",
+                "next": "skywave",
+                "correct": true,
+                "feedback": "You listened to the full CQ and answered during the pause with both callsigns."
               }
             ]
           }
@@ -257,32 +655,84 @@
       "id": "mara-final-contact",
       "name": "Mara — Across the Distance",
       "match": {
-        "frequency": 28.420,
-        "mode": "USB",
-        "antenna": [
-          "dipole-40m",
-          "hf-vertical"
-        ]
+        "frequency": 28.42,
+        "mode": "USB"
       },
       "conversation": {
-        "start": "contact",
+        "start": "listen-first",
         "nodes": {
           "contact": {
-            "text": "A familiar voice breaks through the noise. “This is Mara. I hear you. The ridge blocked my local VHF path, so I waited for a usable HF opening. The F region carried the 10-meter signal back toward Earth. You found the right band and the right time. The ionospheric signal is elliptically polarized, so either a vertical or horizontal HF antenna can work. You did not need to guess at one perfect orientation. You needed to understand the path the signal was taking.”",
+            "text": "K7DBN, this is K7MVR. I hear you. The ridge blocked my local VHF path, so I waited for a usable HF opening. The F region carried the 10-meter signal back toward Earth. You found the right band and the right time. The ionospheric signal is elliptically polarized, so either a vertical or horizontal HF antenna can work. You did not need to guess at one perfect orientation. You needed to understand the path the signal was taking.",
             "responses": [
               {
-                "text": "Confirm the contact and ask whether Mara is safe.",
+                "text": "K7MVR, K7DBN. Confirm the contact and ask whether Mara is safe.",
                 "next": "resolution"
               }
             ]
           },
           "resolution": {
-            "text": "“I'm safe for now,” Mara replies. “The Watchers are still searching the valley, but the ridge and the changing propagation conditions gave me a way to reach you. You learned that a signal does not always travel in a straight line. Tomorrow, we work on keeping the equipment itself alive.”",
+            "text": "“I’m safe for now,” Mara replies. “The Watchers are still searching the valley, but the ridge and the changing propagation conditions gave me a way to reach you. You learned that a signal does not always travel in a straight line. Tomorrow, we work on keeping the equipment itself alive.”",
             "responses": [
               {
-                "text": "End the contact and complete Chapter 2.",
+                "text": "K7MVR, K7DBN, clear. Complete Chapter 2.",
                 "next": null,
                 "chapterComplete": true
+              }
+            ]
+          },
+          "listen-first": {
+            "text": "You tune to 28.420 MHz USB. You recognize Mara’s signal from earlier contacts. Listen through her transmission and wait for a pause before calling the station you know.",
+            "responses": [
+              {
+                "text": "Listen first. Monitor the frequency before transmitting.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You listened before transmitting and confirmed the channel was available."
+              },
+              {
+                "text": "Transmit immediately without checking whether the frequency is occupied.",
+                "next": "listen-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "listen-correction": {
+            "text": "You catch yourself before continuing. Listening first gives another station a chance to finish and prevents doubling.",
+            "responses": [
+              {
+                "text": "Release the transmit button and listen until the frequency is clear.",
+                "next": "after-listen",
+                "correct": true,
+                "feedback": "You stopped transmitting and checked the channel before making a call."
+              }
+            ]
+          },
+          "after-listen": {
+            "text": "You listen on 28.420 MHz USB. Mara finishes a transmission and leaves a pause. You know her callsign, so make a direct call.",
+            "responses": [
+              {
+                "text": "K7MVR, K7DBN. Do you copy?",
+                "next": "contact",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
+              },
+              {
+                "text": "Call CQ even though you can already hear Mara.",
+                "next": "call-correction",
+                "correct": false,
+                "feedback": "The channel must be checked before you transmit."
+              }
+            ]
+          },
+          "call-correction": {
+            "text": "You already know the station you want. Call K7MVR directly, then identify yourself.",
+            "responses": [
+              {
+                "text": "K7MVR, K7DBN. Do you copy?",
+                "next": "contact",
+                "correct": true,
+                "feedback": "You listened first, then made a brief call with both stations identified."
               }
             ]
           }
